@@ -1,0 +1,5652 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>七美德樞密議會｜王國最高決策機構卷宗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Noto+Serif+TC:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-abyss: #080607;
+      --bg-velvet: #130c0e;
+      --bg-panel: #171112;
+      --bg-panel-hover: #1f1618;
+      --gold-bright: #e5c378;
+      --gold-main: #c29b52;
+      --gold-dim: #7c6030;
+      --gold-line: rgba(194, 155, 82, 0.32);
+      --ivory: #ece2d0;
+      --parchment: #bfb29c;
+      --muted: #847766;
+
+      /* 派系代表色（宮廷暗調） */
+      --conservative: #9e2a2b;
+      --conservative-glow: rgba(158, 42, 43, 0.45);
+      --radical: #2c6e63;
+      --radical-glow: rgba(44, 110, 99, 0.45);
+      --neutral: #6c7a89;
+      --neutral-glow: rgba(108, 122, 137, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-abyss);
+      color: var(--ivory);
+      font-family: 'Noto Serif TC', serif;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(92, 24, 28, 0.32) 0%, transparent 60%),
+        radial-gradient(circle at 50% 45%, rgba(194, 155, 82, 0.06) 0%, transparent 65%),
+        linear-gradient(180deg, #0b0708 0%, #110b0d 45%, #070506 100%);
+      position: relative;
+    }
+
+    /* 古典暗紋與暗角 */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.92);
+    }
+
+    #ember-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 外框宮廷雙線裝飾 */
+    .royal-frame {
+      position: fixed;
+      inset: 14px;
+      border: 1px solid rgba(194, 155, 82, 0.22);
+      pointer-events: none;
+      z-index: 20;
+    }
+    .royal-frame::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(194, 155, 82, 0.1);
+    }
+
+    .corner-ornament {
+      position: fixed;
+      width: 44px;
+      height: 44px;
+      z-index: 21;
+      pointer-events: none;
+      fill: none;
+      stroke: var(--gold-main);
+      stroke-width: 1.3;
+      opacity: 0.75;
+    }
+    .corner-tl { top: 10px; left: 10px; }
+    .corner-tr { top: 10px; right: 10px; transform: scaleX(-1); }
+    .corner-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
+    .corner-br { bottom: 10px; right: 10px; transform: scale(-1, -1); }
+
+    main {
+      position: relative;
+      z-index: 5;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 72px 32px 110px;
+    }
+
+    /* 頂部王權詔書區 */
+    .crest-header {
+      text-align: center;
+      margin-bottom: 56px;
+      position: relative;
+    }
+
+    .crown-emblem {
+      width: 76px;
+      height: 54px;
+      margin: 0 auto 14px;
+      display: block;
+      filter: drop-shadow(0 0 14px rgba(194, 155, 82, 0.35));
+      animation: slowFloat 5s ease-in-out infinite;
+    }
+
+    @keyframes slowFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .latin-subtitle {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.42em;
+      font-size: 0.76rem;
+      color: var(--gold-main);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .main-title {
+      font-weight: 900;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      letter-spacing: 0.24em;
+      padding-left: 0.24em;
+      background: linear-gradient(180deg, #fff5dc 0%, #dfc07c 48%, #9d7734 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      margin-bottom: 22px;
+    }
+
+    .royal-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      max-width: 620px;
+      margin: 0 auto 26px;
+    }
+    .royal-divider::before,
+    .royal-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-main), transparent);
+    }
+    .royal-divider span {
+      color: var(--gold-main);
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.2em;
+    }
+
+    .decree-box {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 24px 36px;
+      background: linear-gradient(180deg, rgba(26, 17, 19, 0.85), rgba(14, 10, 11, 0.92));
+      border-top: 1px solid var(--gold-line);
+      border-bottom: 1px solid var(--gold-line);
+      position: relative;
+      line-height: 1.95;
+      color: var(--parchment);
+      font-size: 1.02rem;
+      letter-spacing: 0.07em;
+    }
+    .decree-box strong {
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+
+    /* 樞密議事廳星盤圖譜 */
+    .chamber-section {
+      margin: 0 auto 56px;
+      background: radial-gradient(ellipse at 50% 65%, rgba(42, 23, 25, 0.55) 0%, rgba(15, 11, 12, 0.88) 75%);
+      border: 1px solid rgba(194, 155, 82, 0.25);
+      padding: 32px 24px 26px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+    }
+
+    .chamber-section::before {
+      content: "CONCILIUM SEPTEM VIRTUTUM";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-abyss);
+      padding: 0 18px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.32em;
+      color: var(--gold-main);
+      white-space: nowrap;
+    }
+
+    .chamber-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hemicycle-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .hemicycle-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    .seat-node {
+      cursor: pointer;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+    .seat-node:hover {
+      filter: drop-shadow(0 0 12px rgba(229, 195, 120, 0.75));
+    }
+    .seat-node.dimmed {
+      opacity: 0.22;
+    }
+    .seat-node.active .seat-ring {
+      stroke: var(--gold-bright);
+      stroke-width: 2.6;
+    }
+
+    .relation-line {
+      fill: none;
+      stroke-linecap: round;
+      transition: opacity 0.4s ease;
+    }
+    .relation-clash {
+      stroke: #d9383a;
+      stroke-width: 1.8;
+      stroke-dasharray: 5 5;
+      animation: dashMove 16s linear infinite;
+    }
+    .relation-ally {
+      stroke: rgba(212, 173, 96, 0.45);
+      stroke-width: 1.2;
+    }
+
+    @keyframes dashMove {
+      to { stroke-dashoffset: -160; }
+    }
+
+    /* 右側即時席次情報面板 */
+    .spotlight-dossier {
+      border-left: 1px solid rgba(194, 155, 82, 0.22);
+      padding: 12px 16px 12px 28px;
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .dossier-numeral {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.82rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.28em;
+      margin-bottom: 6px;
+    }
+
+    .dossier-header-line {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .dossier-name {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: var(--ivory);
+    }
+
+    .dossier-latin {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      color: var(--gold-main);
+    }
+
+    .faction-seal {
+      display: inline-block;
+      padding: 3px 12px;
+      font-size: 0.76rem;
+      letter-spacing: 0.16em;
+      border: 1px solid currentColor;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+    .seal-conservative { color: #df6d6e; background: rgba(158, 42, 43, 0.16); }
+    .seal-radical { color: #6bc4b5; background: rgba(44, 110, 99, 0.16); }
+    .seal-neutral { color: #b5c4d4; background: rgba(108, 122, 137, 0.16); }
+
+    .dossier-domain {
+      font-size: 0.92rem;
+      color: var(--gold-bright);
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(194, 155, 82, 0.16);
+      letter-spacing: 0.06em;
+    }
+
+    .dossier-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .dossier-points li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.93rem;
+      line-height: 1.75;
+      color: var(--parchment);
+    }
+    .dossier-points li::before {
+      content: "❖";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      font-size: 0.72rem;
+      color: var(--gold-main);
+    }
+
+    .chamber-legend {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(194, 155, 82, 0.14);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .legend-group {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      transform: rotate(45deg);
+      display: inline-block;
+    }
+
+    /* 派系篩選列 */
+    .faction-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 44px;
+    }
+
+    .faction-btn {
+      background: linear-gradient(180deg, #191214 0%, #0e0a0b 100%);
+      border: 1px solid rgba(194, 155, 82, 0.32);
+      color: var(--parchment);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 0.92rem;
+      letter-spacing: 0.15em;
+      padding: 11px 24px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .faction-btn::before,
+    .faction-btn::after {
+      content: "";
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border: 1px solid var(--gold-main);
+      transition: all 0.3s ease;
+      opacity: 0.5;
+    }
+    .faction-btn::before { top: 3px; left: 3px; border-right: none; border-bottom: none; }
+    .faction-btn::after { bottom: 3px; right: 3px; border-left: none; border-top: none; }
+
+    .faction-btn:hover,
+    .faction-btn.active {
+      color: var(--ivory);
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 22px rgba(194, 155, 82, 0.22), inset 0 0 14px rgba(194, 155, 82, 0.1);
+      transform: translateY(-2px);
+    }
+    .faction-btn.active {
+      background: linear-gradient(180deg, #2b1c18 0%, #140d0e 100%);
+      color: var(--gold-bright);
+    }
+
+    .faction-count {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      opacity: 0.75;
+      margin-left: 6px;
+    }
+
+    /* 七席美德牌陣 */
+    .virtues-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .virtue-card {
+      background: linear-gradient(165deg, #1a1214 0%, #0e0a0b 65%, #150e10 100%);
+      border: 1px solid rgba(194, 155, 82, 0.28);
+      padding: 30px 28px 28px;
+      position: relative;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 內嵌宮廷細線框 */
+    .virtue-card::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(194, 155, 82, 0.11);
+      pointer-events: none;
+    }
+
+    /* 滑鼠動態金澤光暈 */
+    .virtue-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        420px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+        rgba(229, 195, 120, 0.11),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+
+    .virtue-card:hover::after {
+      opacity: 1;
+    }
+
+    .virtue-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold-bright);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(194, 155, 82, 0.14);
+    }
+
+    .virtue-card[data-faction="conservative"]:hover {
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 28px var(--conservative-glow);
+    }
+    .virtue-card[data-faction="radical"]:hover {
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 28px var(--radical-glow);
+    }
+    .virtue-card[data-faction="neutral"]:hover {
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 28px var(--neutral-glow);
+    }
+
+    .virtue-card.filtered-out {
+      display: none;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .roman-seat {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.25em;
+      color: var(--gold-dim);
+    }
+
+    .virtue-sigil {
+      width: 46px;
+      height: 46px;
+      stroke: var(--gold-main);
+      fill: none;
+      stroke-width: 1.35;
+      opacity: 0.88;
+      transition: transform 0.5s ease, stroke 0.35s ease;
+    }
+    .virtue-card:hover .virtue-sigil {
+      transform: scale(1.08) rotate(4deg);
+      stroke: var(--gold-bright);
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .card-virtue-name {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--ivory);
+    }
+
+    .card-virtue-latin {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
+      color: var(--gold-main);
+    }
+
+    .card-jurisdiction {
+      margin: 12px 0 18px;
+      padding: 8px 12px;
+      background: rgba(194, 155, 82, 0.06);
+      border-left: 2px solid var(--gold-main);
+      font-size: 0.88rem;
+      color: var(--gold-bright);
+      letter-spacing: 0.06em;
+    }
+    .card-jurisdiction span {
+      color: var(--muted);
+      margin-right: 6px;
+      font-size: 0.8rem;
+    }
+
+    .card-lore {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      flex: 1;
+    }
+
+    .card-lore li {
+      font-size: 0.92rem;
+      line-height: 1.78;
+      color: var(--parchment);
+      padding-left: 16px;
+      position: relative;
+      text-align: justify;
+    }
+    .card-lore li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--gold-dim);
+    }
+
+    .card-footer {
+      margin-top: 22px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(194, 155, 82, 0.14);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+    }
+
+    .card-note {
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* 底部派系總覽碑文 */
+    .factions-monolith {
+      margin-top: 68px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid rgba(194, 155, 82, 0.28);
+      background: rgba(13, 9, 10, 0.9);
+    }
+
+    .monolith-col {
+      padding: 28px 26px;
+      border-right: 1px solid rgba(194, 155, 82, 0.18);
+      position: relative;
+    }
+    .monolith-col:last-child {
+      border-right: none;
+    }
+
+    .monolith-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .monolith-sub {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .monolith-members {
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      color: var(--ivory);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .monolith-desc {
+      font-size: 0.86rem;
+      line-height: 1.75;
+      color: var(--parchment);
+      opacity: 0.85;
+    }
+
+    .colophon {
+      text-align: center;
+      margin-top: 54px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.35em;
+      color: var(--gold-dim);
+    }
+
+    /* 響應式調整 */
+    @media (max-width: 960px) {
+      .chamber-grid {
+        grid-template-columns: 1fr;
+      }
+      .spotlight-dossier {
+        border-left: none;
+        border-top: 1px solid rgba(194, 155, 82, 0.22);
+        padding: 22px 8px 6px;
+        min-height: auto;
+      }
+      .factions-monolith {
+        grid-template-columns: 1fr;
+      }
+      .monolith-col {
+        border-right: none;
+        border-bottom: 1px solid rgba(194, 155, 82, 0.18);
+      }
+      .monolith-col:last-child {
+        border-bottom: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      main {
+        padding: 52px 18px 80px;
+      }
+      .decree-box {
+        padding: 18px 20px;
+        font-size: 0.94rem;
+      }
+      .virtues-grid {
+        grid-template-columns: 1fr;
+      }
+      .royal-frame {
+        inset: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 懸浮金粉微粒背景 -->
+  <canvas id="ember-canvas"></canvas>
+
+  <!-- 宮廷四角雕花與外框 -->
+  <div class="royal-frame"></div>
+  <svg class="corner-ornament corner-tl" viewBox="0 0 50 50">
+    <path d="M2 48 L2 2 L48 2" />
+    <path d="M8 34 L8 8 L34 8" />
+    <circle cx="14" cy="14" r="2.2" fill="#c29b52" />
+    <path d="M2 20 Q14 14 20 2" />
+  </svg>
+  <svg class="corner-ornament corner-tr" viewBox="0 0 50 50">
+    <path d="M2 48 L2 2 L48 2" />
+    <path d="M8 34 L8 8 L34 8" />
+    <circle cx="14" cy="14" r="2.2" fill="#c29b52" />
+    <path d="M2 20 Q14 14 20 2" />
+  </svg>
+  <svg class="corner-ornament corner-bl" viewBox="0 0 50 50">
+    <path d="M2 48 L2 2 L48 2" />
+    <path d="M8 34 L8 8 L34 8" />
+    <circle cx="14" cy="14" r="2.2" fill="#c29b52" />
+    <path d="M2 20 Q14 14 20 2" />
+  </svg>
+  <svg class="corner-ornament corner-br" viewBox="0 0 50 50">
+    <path d="M2 48 L2 2 L48 2" />
+    <path d="M8 34 L8 8 L34 8" />
+    <circle cx="14" cy="14" r="2.2" fill="#c29b52" />
+    <path d="M2 20 Q14 14 20 2" />
+  </svg>
+
+  <main>
+    <!-- 王室紋章與總綱 -->
+    <header class="crest-header">
+      <svg class="crown-emblem" viewBox="0 0 120 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 64L8 26L36 44L60 12L84 44L112 26L104 64H16Z" stroke="#e5c378" stroke-width="2" fill="rgba(194,155,82,0.1)"/>
+        <path d="M14 70H106M20 76H100" stroke="#c29b52" stroke-width="1.8"/>
+        <circle cx="60" cy="8" r="3.5" fill="#e5c378"/>
+        <circle cx="8" cy="22" r="2.8" fill="#c29b52"/>
+        <circle cx="112" cy="22" r="2.8" fill="#c29b52"/>
+        <circle cx="60" cy="46" r="4" stroke="#e5c378" stroke-width="1.5"/>
+      </svg>
+      <p class="latin-subtitle">Sacrum Concilium Regni ・ 國家最高決策與諮詢機構</p>
+      <h1 class="main-title">七美德樞密議會</h1>
+      <div class="royal-divider">
+        <span>VII VIRTUTES</span>
+      </div>
+      <div class="decree-box">
+        王國最高決策與諮詢樞紐，由七位分別冠以核心美德之名的議員執掌。<br>
+        <strong>國王</strong>高踞王座，保留最終裁決大權與象徵性統治權；凡俗國政與律令推行，悉數須經議會商討、交鋒與制衡後方得執行。
+      </div>
+    </header>
+
+    <!-- 互動式半圓議事廳與派系張力圖 -->
+    <section class="chamber-section" aria-label="樞密議事廳席次圖">
+      <div class="chamber-grid">
+        <div class="hemicycle-wrap">
+          <svg class="hemicycle-svg" viewBox="0 0 560 330" id="hemicycle-svg">
+            <defs>
+              <radialGradient id="throneGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#e5c378" stop-opacity="0.32" />
+                <stop offset="100%" stop-color="#e5c378" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+
+            <!-- 議事廳同心幾何軌道 -->
+            <path d="M 56 276 A 224 224 0 0 1 504 276" fill="none" stroke="rgba(194,155,82,0.18)" stroke-width="1" stroke-dasharray="3 6" />
+            <path d="M 96 276 A 184 184 0 0 1 464 276" fill="none" stroke="rgba(194,155,82,0.28)" stroke-width="1.2" />
+            <path d="M 152 276 A 128 128 0 0 1 408 276" fill="none" stroke="rgba(194,155,82,0.14)" stroke-width="1" />
+            <line x1="40" y1="276" x2="520" y2="276" stroke="rgba(194,155,82,0.2)" stroke-width="1" />
+
+            <!-- 派系盟約與衝突連線（由 JS 動態繪製） -->
+            <g id="relations-layer"></g>
+
+            <!-- 中央王座象徵 -->
+            <g transform="translate(280, 255)">
+              <circle cx="0" cy="0" r="46" fill="url(#throneGlow)" />
+              <polygon points="0,-30 26,0 0,30 -26,0" fill="#161012" stroke="#e5c378" stroke-width="1.6" />
+              <polygon points="0,-22 19,0 0,22 -19,0" fill="none" stroke="rgba(229,195,120,0.4)" stroke-width="1" />
+              <text x="0" y="-2" text-anchor="middle" fill="#e5c378" font-size="13" font-weight="700" letter-spacing="2">王座</text>
+              <text x="0" y="14" text-anchor="middle" fill="#bfb29c" font-size="9" letter-spacing="1">最終裁決權</text>
+            </g>
+
+            <!-- 七席節點（由 JS 動態注入） -->
+            <g id="seats-layer"></g>
+          </svg>
+        </div>
+
+        <!-- 右側選中席次即時卷宗 -->
+        <div class="spotlight-dossier" id="spotlight-dossier">
+          <!-- 由 JS 渲染預設與點擊內容 -->
+        </div>
+      </div>
+
+      <div class="chamber-legend">
+        <div class="legend-group">
+          <span class="legend-item"><i class="legend-dot" style="background:#df6d6e;"></i>保守派（謙卑・貞潔・節制）</span>
+          <span class="legend-item"><i class="legend-dot" style="background:#b5c4d4;"></i>中立／調和（寬容・忍耐）</span>
+          <span class="legend-item"><i class="legend-dot" style="background:#6bc4b5;"></i>激進派（勤勉・慷慨）</span>
+        </div>
+        <div class="legend-group">
+          <span class="legend-item"><span style="color:#d9383a;">┄┄</span> 預算與路線死敵（節制 ✕ 慷慨）</span>
+          <span>點擊議席可檢閱個別卷宗</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 派系印記篩選器 -->
+    <nav class="faction-bar" aria-label="議會派系篩選">
+      <button class="faction-btn active" data-filter="all">全席總覽<span class="faction-count">VII</span></button>
+      <button class="faction-btn" data-filter="conservative">保守派<span class="faction-count">III</span></button>
+      <button class="faction-btn" data-filter="neutral">中立／調和<span class="faction-count">II</span></button>
+      <button class="faction-btn" data-filter="radical">激進派<span class="faction-count">II</span></button>
+    </nav>
+
+    <!-- 七美德詳細牌陣 -->
+    <section class="virtues-grid" id="virtues-grid"></section>
+
+    <!-- 三大陣營對峙碑文 -->
+    <section class="factions-monolith" aria-label="議會三大派系格局">
+      <div class="monolith-col">
+        <h2 class="monolith-title" style="color:#df6d6e;">保守派</h2>
+        <span class="monolith-sub">ORDO CONSERVATIVUS</span>
+        <div class="monolith-members">謙卑 ・ 貞潔 ・ 節制</div>
+        <p class="monolith-desc">
+          捍衛神授血脈、祖宗禮法與財政紀律。將魔法奉為不可輕辱的聖潔秘儀，嚴防魔法泛用與軍事化動搖國本、敗壞道德。
+        </p>
+      </div>
+      <div class="monolith-col">
+        <h2 class="monolith-title" style="color:#b5c4d4;">中立／調和</h2>
+        <span class="monolith-sub">LIBRA MEDIATIONIS</span>
+        <div class="monolith-members">寬容 ・ 忍耐</div>
+        <p class="monolith-desc">
+          立於新舊裂痕之間，以民間福祉與長遠秩序為念。主張漸進開放與多方折衝，避免急劇變革撕裂王國社稷。
+        </p>
+      </div>
+      <div class="monolith-col">
+        <h2 class="monolith-title" style="color:#6bc4b5;">激進派</h2>
+        <span class="monolith-sub">PACTUM NOVATIONIS</span>
+        <div class="monolith-members">勤勉 ・ 慷慨</div>
+        <p class="monolith-desc">
+          聚焦國家生產效率與全民資源共享。力主在實證與監管下將魔法化為公共建設與民生動力，打破貴族壟斷藩籬。
+        </p>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      ARCHIVUM REGNI ・ SUB CORONA ET SEPTEM SIGILLIS
+    </footer>
+  </main>
+
+  <script>
+    const VIRTUES_DATA = [
+      {
+        id: "humility",
+        seat: "SEDES I",
+        name: "謙卑",
+        latin: "HUMILITAS",
+        faction: "conservative",
+        factionLabel: "保守派",
+        domain: "傳統、禮儀與宗教事務",
+        angle: 168,
+        sigil: `<svg class="virtue-sigil" viewBox="0 0 48 48">
+          <path d="M24 6 L24 42 M14 16 L34 16" />
+          <path d="M12 34 C12 24, 36 24, 36 34 Z" />
+          <circle cx="24" cy="16" r="5" />
+        </svg>`,
+        points: [
+          "堅信魔法乃神明賜予貴族血脈的「神聖」，專司維繫人間秩序與純正信仰。",
+          "認定魔法一旦泛用必將玷污純粹本質，進而動搖國本。",
+          "處事低調沉穩，言辭委婉卻立場頑固；慣以「祖宗之法不可變」為由，抵禦一切激進改革。"
+        ],
+        tagNote: "古禮護持者"
+      },
+      {
+        id: "chastity",
+        seat: "SEDES VII",
+        name: "貞潔",
+        latin: "CASTITAS",
+        faction: "conservative",
+        factionLabel: "保守派",
+        domain: "魔法教育、血統認證與秘儀傳承",
+        angle: 142,
+        sigil: `<svg class="virtue-sigil" viewBox="0 0 48 48">
+          <polygon points="24,5 36,24 24,43 12,24" />
+          <polygon points="24,13 30,24 24,35 18,24" />
+          <line x1="6" y1="24" x2="12" y2="24" />
+          <line x1="36" y1="24" x2="42" y2="24" />
+        </svg>`,
+        points: [
+          "奉魔法為至高神聖的藝術，唯有純正血脈輔以嚴苛修煉方可執掌。",
+          "視軍事化魔法為「對魔法的玷污」，對此深惡痛絕。",
+          "性情冷峻孤高、原則極強，凡涉魔法本質議題絕不妥協，為貴族派的靈魂人物。"
+        ],
+        tagNote: "貴族派靈魂人物"
+      },
+      {
+        id: "temperance",
+        seat: "SEDES VI",
+        name: "節制",
+        latin: "TEMPERANTIA",
+        faction: "conservative",
+        factionLabel: "保守派",
+        domain: "預算審核、道德監督與魔法管制",
+        angle: 116,
+        sigil: `<svg class="virtue-sigil" viewBox="0 0 48 48">
+          <path d="M14 8 H34 L24 24 L34 40 H14 L24 24 Z" />
+          <line x1="11" y1="8" x2="37" y2="8" />
+          <line x1="11" y1="40" x2="37" y2="40" />
+        </svg>`,
+        points: [
+          "強烈反對魔法濫用，斷言軍事化必將導致國家財政失衡與道德淪喪。",
+          "在議場與歲計審核上與「慷慨」針鋒相對，寸步不讓。",
+          "作風嚴謹守舊，堅信「慾望需受約束」，為保守派陣營的重要盟友。"
+        ],
+        tagNote: "與【慷慨】針鋒相對"
+      },
+      {
+        id: "patience",
+        seat: "SEDES III",
+        name: "忍耐",
+        latin: "PATIENTIA",
+        faction: "neutral",
+        factionLabel: "中立／調和",
+        domain: "內政、司法與社會福利",
+        angle: 90,
+        sigil: `<svg class="virtue-sigil" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="16" />
+          <circle cx="24" cy="24" r="10" stroke-dasharray="3 3" />
+          <path d="M24 12 L24 24 L31 29" />
+        </svg>`,
+        points: [
+          "密切關注魔法政策對平民階層的衝擊，施政力主「漸進」。",
+          "認可魔法軍事化確有現實必要，惟須留足歲月緩衝，以防社會撕裂。",
+          "擅長制度規劃與長期佈局，對急於求成的短期激進提案常持懷疑態度。"
+        ],
+        tagNote: "長線佈局者"
+      },
+      {
+        id: "tolerance",
+        seat: "SEDES II",
+        name: "寬容",
+        latin: "CLEMENTIA",
+        faction: "neutral",
+        factionLabel: "中立／調和",
+        domain: "外交、文化與民間協調",
+        angle: 64,
+        sigil: `<svg class="virtue-sigil" viewBox="0 0 48 48">
+          <line x1="24" y1="8" x2="24" y2="40" />
+          <line x1="10" y1="18" x2="38" y2="18" />
+          <path d="M10 18 L6 28 C6 32, 14 32, 14 28 Z" />
+          <path d="M38 18 L34 28 C34 32, 42 32, 42 28 Z" />
+        </svg>`,
+        points: [
+          "深諳魔法傳承的歷史淵源，亦主張有限度開放以促進社會流動。",
+          "常年奔走於保守與激進兩派之間，擔綱衝突調停者。",
+          "善於聆聽並接納多元意見，卻時常因試圖取悅各方而顯得優柔寡斷。"
+        ],
+        tagNote: "兩派調停樞紐"
+      },
+      {
+        id: "generosity",
+        seat: "SEDES V",
+        name: "慷慨",
+        latin: "LIBERALITAS",
+        faction: "radical",
+        factionLabel: "激進派",
+        domain: "財政、資源分配與公共建設",
+        angle: 38,
+        sigil: `<svg class="virtue-sigil" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="7" />
+          <path d="M24 6 V13 M24 35 V42 M6 24 H13 M35 24 H42" />
+          <path d="M11 11 L16 16 M32 32 L37 37 M37 11 L32 16 M16 32 L11 37" />
+        </svg>`,
+        points: [
+          "將魔法視為取之不竭的「可再生資源」。",
+          "主張在嚴格監管下有條件開放魔法，使舉國全民皆能受益。",
+          "重視平等與資源共享，常與執掌審核的「節制」在預算問題上爆發激烈衝突。"
+        ],
+        tagNote: "與【節制】激烈交鋒"
+      },
+      {
+        id: "diligence",
+        seat: "SEDES IV",
+        name: "勤勉",
+        latin: "INDUSTRIA",
+        faction: "radical",
+        factionLabel: "激進派",
+        domain: "經濟、建設",
+        angle: 12,
+        sigil: `<svg class="virtue-sigil" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="11" />
+          <circle cx="24" cy="24" r="4" />
+          <path d="M24 8 V13 M24 35 V40 M8 24 H13 M35 24 H40 M13 13 L16.5 16.5 M31.5 31.5 L35 35 M35 13 L31.5 16.5 M16.5 31.5 L13 35" />
+        </svg>`,
+        points: [
+          "支持魔法廣泛應用於民生科技與生產力提升，對純軍事用途則持保留態度。",
+          "認定「效率」為國家富強的核心關鍵。",
+          "凡事重視數據與實證，極度厭惡意識形態之爭，常於僵局中提出折衷技術方案。"
+        ],
+        tagNote: "實證技術官僚"
+      }
+    ];
+
+    // 卡片顯示依原始世界觀順序排列：謙卑、寬容、忍耐、勤勉、慷慨、節制、貞潔
+    const DISPLAY_ORDER = ["humility", "tolerance", "patience", "diligence", "generosity", "temperance", "chastity"];
+
+    const FACTION_COLORS = {
+      conservative: { stroke: "#df6d6e", fill: "#2a1214", sealClass: "seal-conservative" },
+      neutral:      { stroke: "#b5c4d4", fill: "#181d22", sealClass: "seal-neutral" },
+      radical:      { stroke: "#6bc4b5", fill: "#112421", sealClass: "seal-radical" }
+    };
+
+    const gridEl = document.getElementById("virtues-grid");
+    const seatsLayer = document.getElementById("seats-layer");
+    const relationsLayer = document.getElementById("relations-layer");
+    const spotlightEl = document.getElementById("spotlight-dossier");
+
+    let activeVirtueId = "humility";
+    let currentFilter = "all";
+
+    // 計算議事廳半圓座標
+    function getSeatCoords(angleDeg, radius = 184) {
+      const rad = (angleDeg * Math.PI) / 180;
+      const cx = 280 + radius * Math.cos(Math.PI - rad); // 左到右對應角度：反轉使168度在左側
+      // 修正：直接標準極座標 180度在左、0度在右
+      const x = 280 + radius * Math.cos(rad);
+      const y = 266 - radius * Math.sin(rad);
+      return { x, y };
+    }
+
+    // 繪製議事廳連線與席次
+    function renderHemicycle() {
+      seatsLayer.innerHTML = "";
+      relationsLayer.innerHTML = "";
+
+      const coordsMap = {};
+      VIRTUES_DATA.forEach(v => {
+        coordsMap[v.id] = getSeatCoords(v.angle);
+      });
+
+      // 1. 繪製死敵衝突線：節制 vs 慷慨
+      const cTemp = coordsMap["temperance"];
+      const cGen = coordsMap["generosity"];
+      const clashPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      clashPath.setAttribute("d", `M ${cTemp.x} ${cTemp.y} Q 280 185 ${cGen.x} ${cGen.y}`);
+      clashPath.setAttribute("class", "relation-line relation-clash");
+      relationsLayer.appendChild(clashPath);
+
+      // 2. 繪製保守派同盟弧線（謙卑 - 貞潔 - 節制）
+      const cHum = coordsMap["humility"];
+      const cCha = coordsMap["chastity"];
+      const allyPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      allyPath.setAttribute("d", `M ${cHum.x} ${cHum.y} Q ${cCha.x - 10} ${cCha.y - 12} ${cTemp.x} ${cTemp.y}`);
+      allyPath.setAttribute("class", "relation-line relation-ally");
+      relationsLayer.appendChild(allyPath);
+
+      // 3. 繪製七席節點
+      VIRTUES_DATA.forEach(v => {
+        const { x, y } = coordsMap[v.id];
+        const palette = FACTION_COLORS[v.faction];
+        const isDimmed = currentFilter !== "all" && v.faction !== currentFilter;
+        const isActive = v.id === activeVirtueId;
+
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttribute("class", `seat-node ${isDimmed ? "dimmed" : ""} ${isActive ? "active" : ""}`);
+        g.setAttribute("transform", `translate(${x}, ${y})`);
+        g.dataset.id = v.id;
+
+        g.innerHTML = `
+          <circle cx="0" cy="0" r="26" fill="${palette.fill}" stroke="${palette.stroke}" stroke-width="1.5" class="seat-ring" />
+          <circle cx="0" cy="0" r="21" fill="none" stroke="rgba(229,195,120,0.28)" stroke-width="0.8" />
+          <text x="0" y="5" text-anchor="middle" fill="#ece2d0" font-size="13.5" font-weight="700" letter-spacing="1.5">${v.name}</text>
+        `;
+
+        g.addEventListener("click", () => {
+          selectVirtue(v.id, true);
+        });
+
+        seatsLayer.appendChild(g);
+      });
+    }
+
+    // 更新右側即時卷宗面板
+    function renderSpotlight(id) {
+      const v = VIRTUES_DATA.find(item => item.id === id);
+      if (!v) return;
+      const palette = FACTION_COLORS[v.faction];
+
+      spotlightEl.innerHTML = `
+        <div class="dossier-numeral">${v.seat} ・ 樞密議席</div>
+        <div class="dossier-header-line">
+          <h2 class="dossier-name">【${v.name}】</h2>
+          <span class="dossier-latin">${v.latin}</span>
+        </div>
+        <span class="faction-seal ${palette.sealClass}">${v.factionLabel}</span>
+        <div class="dossier-domain">掌管職權｜${v.domain}</div>
+        <ul class="dossier-points">
+          ${v.points.map(p => `<li>${p}</li>`).join("")}
+        </ul>
+      `;
+    }
+
+    // 渲染下方七張宮廷卷宗牌
+    function renderCards() {
+      gridEl.innerHTML = "";
+      DISPLAY_ORDER.forEach(id => {
+        const v = VIRTUES_DATA.find(item => item.id === id);
+        const palette = FACTION_COLORS[v.faction];
+        const card = document.createElement("article");
+        card.className = "virtue-card";
+        card.id = `card-${v.id}`;
+        card.dataset.faction = v.faction;
+        if (currentFilter !== "all" && v.faction !== currentFilter) {
+          card.classList.add("filtered-out");
+        }
+
+        card.innerHTML = `
+          <div class="card-top">
+            <div>
+              <div class="roman-seat">${v.seat}</div>
+              <span class="faction-seal ${palette.sealClass}" style="margin-top:8px;margin-bottom:0;">${v.factionLabel}</span>
+            </div>
+            ${v.sigil}
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-virtue-name">${v.name}</h3>
+            <span class="card-virtue-latin">${v.latin}</span>
+          </div>
+          <div class="card-jurisdiction">
+            <span>掌管</span>${v.domain}
+          </div>
+          <ul class="card-lore">
+            ${v.points.map(p => `<li>${p}</li>`).join("")}
+          </ul>
+          <div class="card-footer">
+            <span class="card-note">${v.tagNote}</span>
+            <span style="color:var(--gold-main);font-family:'Cinzel',serif;font-size:0.72rem;letter-spacing:0.15em;">INSPECT ❖</span>
+          </div>
+        `;
+
+        // 滑鼠移動金屬反光追蹤
+        card.addEventListener("mousemove", e => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+          card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+        });
+
+        card.addEventListener("click", () => {
+          selectVirtue(v.id, false);
+          document.querySelector(".chamber-section").scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+
+        gridEl.appendChild(card);
+      });
+    }
+
+    function selectVirtue(id, scrollToCard = false) {
+      activeVirtueId = id;
+      renderHemicycle();
+      renderSpotlight(id);
+      if (scrollToCard) {
+        const targetCard = document.getElementById(`card-${id}`);
+        if (targetCard && !targetCard.classList.contains("filtered-out")) {
+          targetCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+      }
+    }
+
+    // 派系篩選按鈕事件
+    document.querySelectorAll(".faction-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".faction-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.dataset.filter;
+
+        // 若目前選中議員不在該派系內，自動切換至該派系首位議員
+        if (currentFilter !== "all") {
+          const firstMatch = VIRTUES_DATA.find(v => v.faction === currentFilter);
+          if (firstMatch && VIRTUES_DATA.find(v => v.id === activeVirtueId)?.faction !== currentFilter) {
+            activeVirtueId = firstMatch.id;
+            renderSpotlight(activeVirtueId);
+          }
+        }
+
+        renderHemicycle();
+        document.querySelectorAll(".virtue-card").forEach(card => {
+          const match = currentFilter === "all" || card.dataset.faction === currentFilter;
+          card.classList.toggle("filtered-out", !match);
+        });
+      });
+    });
+
+    // 宮廷燭火金塵背景動畫
+    function initEmberCanvas() {
+      const canvas = document.getElementById("ember-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height, particles;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+
+      function createParticles() {
+        const count = Math.min(55, Math.floor((width * height) / 26000));
+        particles = Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 1.6 + 0.4,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: -Math.random() * 0.28 - 0.06,
+          alpha: Math.random() * 0.55 + 0.1,
+          phase: Math.random() * Math.PI * 2
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.phase += 0.015;
+
+          if (p.y < -10) {
+            p.y = height + 10;
+            p.x = Math.random() * width;
+          }
+          if (p.x < -10) p.x = width + 10;
+          if (p.x > width + 10) p.x = -10;
+
+          const glow = p.alpha * (0.65 + 0.35 * Math.sin(p.phase));
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(218, 180, 108, ${glow})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener("resize", () => {
+        resize();
+        createParticles();
+      });
+
+      resize();
+      createParticles();
+      draw();
+    }
+
+    // 初始化
+    renderHemicycle();
+    renderSpotlight(activeVirtueId);
+    renderCards();
+    initEmberCanvas();
+  </script>
+  <!-- ==================== 【貞潔】世家機密卷宗擴充模組 ==================== -->
+<style>
+  /* 觸發按鈕：宮廷金印風格 */
+  .codex-trigger-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(46, 22, 25, 0.92) 0%, rgba(22, 12, 14, 0.96) 100%);
+    border: 1px solid var(--gold-main);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    width: fit-content;
+  }
+  .codex-trigger-btn:hover {
+    border-color: #fff0c2;
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(78, 30, 34, 0.95) 0%, rgba(34, 16, 19, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(194, 155, 82, 0.35), inset 0 0 10px rgba(229, 195, 120, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .card-codex-badge {
+    padding: 5px 12px;
+    border: 1px solid var(--gold-main);
+    background: rgba(158, 42, 43, 0.22);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: all 0.28s ease;
+  }
+  .card-codex-badge:hover {
+    background: rgba(194, 155, 82, 0.25);
+    border-color: #fff0c2;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(229, 195, 120, 0.35);
+  }
+
+  /* 樞密院機密卷宗彈窗遮罩 */
+  .codex-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(5, 3, 4, 0.86);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.38s ease, visibility 0.38s ease;
+  }
+  .codex-modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 卷宗主體外框 */
+  .codex-modal-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    max-height: 88vh;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(112, 28, 32, 0.24) 0%, transparent 58%),
+      linear-gradient(180deg, #161012 0%, #0d090a 100%);
+    border: 1px solid var(--gold-main);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(158, 42, 43, 0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(18px) scale(0.985);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .codex-modal-backdrop.open .codex-modal-sheet {
+    transform: translateY(0) scale(1);
+  }
+
+  .codex-modal-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* 卷宗頂部封條列 */
+  .codex-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.26);
+    background: rgba(10, 7, 8, 0.78);
+    position: relative;
+    z-index: 3;
+  }
+  .codex-topbar-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-main);
+  }
+  .codex-close-btn {
+    background: transparent;
+    border: 1px solid rgba(194, 155, 82, 0.35);
+    color: var(--parchment);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .codex-close-btn:hover {
+    border-color: var(--gold-bright);
+    color: var(--gold-bright);
+    background: rgba(194, 155, 82, 0.1);
+  }
+
+  /* 卷宗捲動內頁 */
+  .codex-scroll-body {
+    overflow-y: auto;
+    padding: 40px 46px 52px;
+    position: relative;
+    z-index: 3;
+  }
+  .codex-scroll-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .codex-scroll-body::-webkit-scrollbar-track {
+    background: #0b0809;
+  }
+  .codex-scroll-body::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+  }
+
+  /* 標題與導言區 */
+  .codex-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 34px;
+    align-items: start;
+    padding-bottom: 34px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    margin-bottom: 34px;
+  }
+
+  .codex-title-group {
+    margin-bottom: 18px;
+  }
+  .codex-seat-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    color: #df6d6e;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .codex-main-heading {
+    font-size: 2.3rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--ivory);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .codex-main-heading span {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--gold-main);
+  }
+
+  .codex-lead-text {
+    font-size: 0.98rem;
+    line-height: 1.95;
+    color: var(--parchment);
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  /* 樞密檔案表格 */
+  .codex-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(18, 12, 14, 0.9);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    font-size: 0.88rem;
+  }
+  .codex-meta-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 9px 14px;
+    background: rgba(194, 155, 82, 0.12);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    border-bottom: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--gold-bright);
+  }
+  .codex-meta-table th,
+  .codex-meta-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.14);
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .codex-meta-table tr:last-child th,
+  .codex-meta-table tr:last-child td {
+    border-bottom: none;
+  }
+  .codex-meta-table th {
+    width: 34%;
+    color: var(--gold-main);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-align: left;
+    border-right: 1px solid rgba(194, 155, 82, 0.14);
+    background: rgba(255, 255, 255, 0.015);
+    white-space: nowrap;
+  }
+  .codex-meta-table td {
+    color: var(--ivory);
+    letter-spacing: 0.04em;
+  }
+
+  /* 章節排版 */
+  .codex-section {
+    margin-bottom: 34px;
+  }
+  .codex-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .codex-h3 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .codex-h3::before {
+    content: "❖";
+    font-size: 0.85rem;
+    color: var(--gold-main);
+  }
+
+  .codex-h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ivory);
+    margin: 20px 0 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--gold-main);
+  }
+
+  .codex-p {
+    font-size: 0.95rem;
+    line-height: 1.92;
+    color: var(--parchment);
+    margin-bottom: 14px;
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  /* 議會陳詞引言框 */
+  .codex-quote {
+    margin: 18px 0 22px;
+    padding: 20px 26px;
+    background: linear-gradient(90deg, rgba(158, 42, 43, 0.14) 0%, rgba(20, 14, 16, 0.6) 100%);
+    border-left: 3px solid var(--gold-bright);
+    border-top: 1px solid rgba(194, 155, 82, 0.16);
+    border-bottom: 1px solid rgba(194, 155, 82, 0.16);
+  }
+  .codex-quote p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--ivory);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .codex-quote cite {
+    display: block;
+    text-align: right;
+    font-style: normal;
+    font-size: 0.84rem;
+    color: var(--gold-main);
+    letter-spacing: 0.12em;
+  }
+
+  /* 派系關係與軼聞列表 */
+  .codex-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+  .codex-list li {
+    padding: 14px 18px;
+    background: rgba(22, 15, 17, 0.78);
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    font-size: 0.93rem;
+    line-height: 1.82;
+    color: var(--parchment);
+    text-align: justify;
+  }
+  .codex-list li strong {
+    color: var(--gold-bright);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 820px) {
+    .codex-hero {
+      grid-template-columns: 1fr;
+    }
+    .codex-scroll-body {
+      padding: 26px 22px 36px;
+    }
+    .codex-topbar {
+      padding: 14px 20px;
+    }
+    .codex-main-heading {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
+<!-- 貞潔世家機密卷宗彈窗結構 -->
+<div class="codex-modal-backdrop" id="chastity-codex-modal" role="dialog" aria-modal="true" aria-labelledby="chastity-codex-title">
+  <div class="codex-modal-sheet">
+    <div class="codex-topbar">
+      <span class="codex-topbar-tag">ARCHIVUM SECRETUM ・ SEDES VII ・ 樞密院世家封存卷宗</span>
+      <button type="button" class="codex-close-btn" id="close-chastity-codex">✕ 封存卷宗</button>
+    </div>
+
+    <div class="codex-scroll-body">
+      <div class="codex-hero">
+        <div>
+          <div class="codex-title-group">
+            <span class="codex-seat-label">ORDO CONSERVATIVUS ・ 核心席位與古老魔法世家</span>
+            <h2 class="codex-main-heading" id="chastity-codex-title">
+              「貞潔」<span>CHASTITY</span>
+            </h2>
+          </div>
+          <p class="codex-lead-text">
+            「貞潔」（Chastity）是王國七美德樞密議會的核心席位與古老魔法世家之一。該家族以嚴苛的自律傳統、保守穩健的施政方針及完整保存的古代魔法典籍聞名，在王國體制中長期承擔秘術監管、魔法事故善後與貴族風紀裁決等職能。
+          </p>
+        </div>
+
+        <table class="codex-meta-table">
+          <caption>REGISTRUM FAMILIAE ・ 檔案紀錄</caption>
+          <tbody>
+            <tr>
+              <th>席位稱號</th>
+              <td>貞潔（Chastity）</td>
+            </tr>
+            <tr>
+              <th>所屬機構</th>
+              <td>七美德樞密議會</td>
+            </tr>
+            <tr>
+              <th>核心典籍</th>
+              <td>《靜典》</td>
+            </tr>
+            <tr>
+              <th>家族格言</th>
+              <td>「以魔法守界。」</td>
+            </tr>
+            <tr>
+              <th>政治立場</th>
+              <td>制度保守派、秘術監管派</td>
+            </tr>
+            <tr>
+              <th>主要職責</th>
+              <td>禁術封存、高階魔法教育審查、重大事故善後</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">歷史淵源</h3>
+        <p class="codex-p">
+          王國建國前的混亂時代，魔法尚無制度約束，各貴族世家為爭奪秘儀、血統與神諭頻繁爆發衝突，導致多座城市在戰火中反覆焚毀與重建。「貞潔」一脈雖非最早掌握魔法的血統，卻率先在家族內部確立了限制魔法使用的戒律。
+        </p>
+        <p class="codex-p">
+          混亂時期末葉，「貞潔」初代家主將家族殺傷力最強的高階秘術悉數封存，編纂為僅限歷代家主與核心繼承人閱覽的《靜典》，並向初代王室立下效忠誓約，確立了「放棄以魔法爭勝、專注維持秩序邊界」的家族方針。此舉使該家族在早期的領土兼併戰爭中長期保持中立與疏離，同時也令其避開了貴族間的血腥內耗，成為戰亂結束後唯一完整保存古代魔法傳承的世家。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">核心理念</h3>
+        <blockquote class="codex-quote">
+          <p>「魔法如同國家的心跳，宜穩忌躁。」</p>
+          <cite>——摘自「貞潔」家族議會陳詞</cite>
+        </blockquote>
+
+        <h4 class="codex-h4">魔法觀</h4>
+        <p class="codex-p">
+          「貞潔」一脈將魔法視為必然伴隨長遠後果的歷史痕跡。在議會決策中，該派系對任何激進、倉促或缺乏退路的制度改革均持保留態度，主張任何涉及魔法規範與血統制度的調整，其潛在裂痕往往需歷經百年方會顯現，因此必須經過漫長的評估與驗證。
+        </p>
+
+        <h4 class="codex-h4">傳承標準</h4>
+        <p class="codex-p">
+          在人才選拔上，「貞潔」家族看重傳承程序的嚴謹度勝於先天血統。其家族內部與所轄機構推行的魔法教育體系以漫長、艱苦與重視敬畏之心著稱，核心目標在於磨礪施法者的心性。根據其公開的審查紀錄，通過嚴苛心性試煉的平民學徒，在獲取高深魔法研習資格上往往優先於品行驕縱的貴族子弟。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">社會評價</h3>
+        <p class="codex-p">
+          「貞潔」家族在民間與政界均享有極高的公信力。歷代出任議員的家族成員作風冷峻寡言，鮮少與民眾互動，公開場合中亦無情緒失控、濫權貪腐或違背誓言的紀錄。
+        </p>
+        <p class="codex-p">
+          在王國行政實務中，該家族長期扮演「善後者」與「執法者」的角色。凡涉及失控的大型魔法事故、流入黑市的禁忌秘術，以及牽涉王室與高階貴族的重大醜聞，通常由「貞潔」席位出面主持調查與處置。其行事風格以直接交付最終處理結果著稱，極少在事前作出公開承諾。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">議會派系關係</h3>
+        <ul class="codex-list">
+          <li><strong>對「謙卑」席位：</strong>雙方在限制權力擴張上屬於理念盟友，但「貞潔」一脈作風更為冷淡，並未投入同等的理想主義熱忱。</li>
+          <li><strong>對「節制」席位：</strong>穩固的制度同盟。雙方在法規執行上高度一致，而「貞潔」在涉及道德與紀律裁量時立場更為冷酷嚴厲。</li>
+          <li><strong>對「勤勉」及「慷慨」席位：</strong>認可兩者在推動國力發展與社會福祉上的實質貢獻，但在涉及高階魔法開放與底線規範的議題上，始終對其保留最後一道審查門檻。</li>
+          <li><strong>對「寬容」及「忍耐」席位：</strong>尊重兩派在各勢力間的斡旋與調和工作，但堅持底線原則優先於政治妥協，反對以無底線的協調取代既有法度。</li>
+        </ul>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">軼聞與設定補充</h3>
+        <ul class="codex-list">
+          <li><strong>《靜典》的保管制度：</strong>據傳《靜典》原件存放於家族領地地底的無魔力迴廊中，開啟典籍需同時具備當代家主的血脈認證與樞密議會的緊急授權令。</li>
+          <li><strong>「無言結案」：</strong>王國官僚體系內部將「貞潔」派系接手調查的案件戲稱為「無言結案」——意指調查過程毫無風聲，而結案公告發布時，相關涉案人員往往已接受完畢處置。</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const modal = document.getElementById("chastity-codex-modal");
+    const closeBtn = document.getElementById("close-chastity-codex");
+    const spotlightContainer = document.getElementById("spotlight-dossier");
+
+    function openChastityCodex() {
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeChastityCodex() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeChastityCodex);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeChastityCodex();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        closeChastityCodex();
+      }
+    });
+
+    // 1. 在下方【貞潔】卡片右下角掛載「詳閱世家卷宗」按鈕
+    function enhanceChastityCard() {
+      const card = document.getElementById("card-chastity");
+      if (!card || card.dataset.codexBound === "true") return;
+      card.dataset.codexBound = "true";
+
+      const footer = card.querySelector(".card-footer");
+      if (footer && footer.lastElementChild) {
+        const badge = document.createElement("button");
+        badge.type = "button";
+        badge.className = "card-codex-badge";
+        badge.textContent = "閱覽世家卷宗 ❖";
+        badge.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openChastityCodex();
+        });
+        footer.replaceChild(badge, footer.lastElementChild);
+      }
+    }
+
+    // 2. 當上方議事廳選中【貞潔】席次時，自動於右側面板顯示調閱按鈕
+    function enhanceSpotlightPanel() {
+      if (!spotlightContainer) return;
+      const titleEl = spotlightContainer.querySelector(".dossier-name");
+      const existingBtn = spotlightContainer.querySelector(".codex-trigger-btn");
+      if (titleEl && titleEl.textContent.includes("貞潔") && !existingBtn) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "codex-trigger-btn";
+        btn.innerHTML = "<span>❖</span><span>調閱《貞潔》世家完整檔案</span>";
+        btn.addEventListener("click", openChastityCodex);
+        spotlightContainer.appendChild(btn);
+      }
+    }
+
+    enhanceChastityCard();
+    enhanceSpotlightPanel();
+
+    if (spotlightContainer) {
+      new MutationObserver(enhanceSpotlightPanel).observe(spotlightContainer, { childList: true });
+    }
+  })();
+</script>
+<!-- ==================== 【貞潔】擴充模組結束 ==================== -->
+<!-- ==================== 【謙卑】世家禮法卷宗擴充模組 ==================== -->
+<style>
+  /* 若單獨嵌入亦能完整運作；與其他席位模組並存時自動共用宮廷基底樣式 */
+  .codex-trigger-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(46, 22, 25, 0.92) 0%, rgba(22, 12, 14, 0.96) 100%);
+    border: 1px solid var(--gold-main);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    width: fit-content;
+  }
+  .codex-trigger-btn:hover {
+    border-color: #fff0c2;
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(78, 30, 34, 0.95) 0%, rgba(34, 16, 19, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(194, 155, 82, 0.35), inset 0 0 10px rgba(229, 195, 120, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .card-codex-badge {
+    padding: 5px 12px;
+    border: 1px solid var(--gold-main);
+    background: rgba(158, 42, 43, 0.22);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: all 0.28s ease;
+  }
+  .card-codex-badge:hover {
+    background: rgba(194, 155, 82, 0.25);
+    border-color: #fff0c2;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(229, 195, 120, 0.35);
+  }
+
+  .codex-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(5, 3, 4, 0.86);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.38s ease, visibility 0.38s ease;
+  }
+  .codex-modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .codex-modal-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    max-height: 88vh;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(112, 28, 32, 0.24) 0%, transparent 58%),
+      linear-gradient(180deg, #161012 0%, #0d090a 100%);
+    border: 1px solid var(--gold-main);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(158, 42, 43, 0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(18px) scale(0.985);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .codex-modal-backdrop.open .codex-modal-sheet {
+    transform: translateY(0) scale(1);
+  }
+  .codex-modal-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* 【謙卑】專屬聖典暗金光暈微調 */
+  #humility-codex-modal .codex-modal-sheet {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(168, 126, 52, 0.18) 0%, rgba(96, 26, 30, 0.16) 38%, transparent 65%),
+      linear-gradient(180deg, #171210 0%, #0c0909 100%);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 42px rgba(194, 155, 82, 0.18);
+  }
+
+  .codex-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.26);
+    background: rgba(10, 7, 8, 0.78);
+    position: relative;
+    z-index: 3;
+  }
+  .codex-topbar-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-main);
+  }
+  .codex-close-btn {
+    background: transparent;
+    border: 1px solid rgba(194, 155, 82, 0.35);
+    color: var(--parchment);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .codex-close-btn:hover {
+    border-color: var(--gold-bright);
+    color: var(--gold-bright);
+    background: rgba(194, 155, 82, 0.1);
+  }
+
+  .codex-scroll-body {
+    overflow-y: auto;
+    padding: 40px 46px 52px;
+    position: relative;
+    z-index: 3;
+  }
+  .codex-scroll-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .codex-scroll-body::-webkit-scrollbar-track {
+    background: #0b0809;
+  }
+  .codex-scroll-body::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+  }
+
+  .codex-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 34px;
+    align-items: start;
+    padding-bottom: 34px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    margin-bottom: 34px;
+  }
+  .codex-title-group {
+    margin-bottom: 18px;
+  }
+  .codex-seat-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    color: #df6d6e;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .codex-main-heading {
+    font-size: 2.3rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--ivory);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .codex-main-heading span {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--gold-main);
+  }
+  .codex-lead-text {
+    font-size: 0.98rem;
+    line-height: 1.95;
+    color: var(--parchment);
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(18, 12, 14, 0.9);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    font-size: 0.88rem;
+  }
+  .codex-meta-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 9px 14px;
+    background: rgba(194, 155, 82, 0.12);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    border-bottom: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--gold-bright);
+  }
+  .codex-meta-table th,
+  .codex-meta-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.14);
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .codex-meta-table tr:last-child th,
+  .codex-meta-table tr:last-child td {
+    border-bottom: none;
+  }
+  .codex-meta-table th {
+    width: 34%;
+    color: var(--gold-main);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-align: left;
+    border-right: 1px solid rgba(194, 155, 82, 0.14);
+    background: rgba(255, 255, 255, 0.015);
+    white-space: nowrap;
+  }
+  .codex-meta-table td {
+    color: var(--ivory);
+    letter-spacing: 0.04em;
+  }
+
+  .codex-section {
+    margin-bottom: 34px;
+  }
+  .codex-section:last-child {
+    margin-bottom: 0;
+  }
+  .codex-h3 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .codex-h3::before {
+    content: "❖";
+    font-size: 0.85rem;
+    color: var(--gold-main);
+  }
+  .codex-h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ivory);
+    margin: 20px 0 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--gold-main);
+  }
+  .codex-p {
+    font-size: 0.95rem;
+    line-height: 1.92;
+    color: var(--parchment);
+    margin-bottom: 14px;
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-quote {
+    margin: 18px 0 22px;
+    padding: 20px 26px;
+    background: linear-gradient(90deg, rgba(158, 42, 43, 0.14) 0%, rgba(20, 14, 16, 0.6) 100%);
+    border-left: 3px solid var(--gold-bright);
+    border-top: 1px solid rgba(194, 155, 82, 0.16);
+    border-bottom: 1px solid rgba(194, 155, 82, 0.16);
+  }
+  #humility-codex-modal .codex-quote {
+    background: linear-gradient(90deg, rgba(194, 155, 82, 0.14) 0%, rgba(20, 15, 14, 0.65) 100%);
+  }
+  .codex-quote p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--ivory);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .codex-quote cite {
+    display: block;
+    text-align: right;
+    font-style: normal;
+    font-size: 0.84rem;
+    color: var(--gold-main);
+    letter-spacing: 0.12em;
+  }
+
+  .codex-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+  .codex-list li {
+    padding: 14px 18px;
+    background: rgba(22, 15, 17, 0.78);
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    font-size: 0.93rem;
+    line-height: 1.82;
+    color: var(--parchment);
+    text-align: justify;
+  }
+  .codex-list li strong {
+    color: var(--gold-bright);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 820px) {
+    .codex-hero {
+      grid-template-columns: 1fr;
+    }
+    .codex-scroll-body {
+      padding: 26px 22px 36px;
+    }
+    .codex-topbar {
+      padding: 14px 20px;
+    }
+    .codex-main-heading {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
+<!-- 謙卑世家禮法卷宗彈窗結構 -->
+<div class="codex-modal-backdrop" id="humility-codex-modal" role="dialog" aria-modal="true" aria-labelledby="humility-codex-title">
+  <div class="codex-modal-sheet">
+    <div class="codex-topbar">
+      <span class="codex-topbar-tag">ARCHIVUM SACRUM ・ SEDES I ・ 樞密院禮法與國史典藏</span>
+      <button type="button" class="codex-close-btn" id="close-humility-codex">✕ 封存卷宗</button>
+    </div>
+
+    <div class="codex-scroll-body">
+      <div class="codex-hero">
+        <div>
+          <div class="codex-title-group">
+            <span class="codex-seat-label">ORDO CONSERVATIVUS ・ 禮法與精神核心席位</span>
+            <h2 class="codex-main-heading" id="humility-codex-title">
+              「謙卑」<span>HUMILITY</span>
+            </h2>
+          </div>
+          <p class="codex-lead-text">
+            「謙卑」（Humility）是王國七美德樞密議會的常設席位之一，由世代執掌國家禮法、歷史編纂與宗教儀軌的古老世家出任。該家族無顯赫的戰鬥秘術傳承，憑藉對王國法統、神學典章及民間慣例的壟斷性解釋權，在樞密議會中居於精神與禮制的核心地位。
+          </p>
+        </div>
+
+        <table class="codex-meta-table">
+          <caption>REGISTRUM FAMILIAE ・ 檔案紀錄</caption>
+          <tbody>
+            <tr>
+              <th>席位稱號</th>
+              <td>謙卑（Humility）</td>
+            </tr>
+            <tr>
+              <th>所屬機構</th>
+              <td>七美德樞密議會</td>
+            </tr>
+            <tr>
+              <th>執掌領域</th>
+              <td>國家禮制、神學釋義、王室典章、國史編纂</td>
+            </tr>
+            <tr>
+              <th>傳承神諭</th>
+              <td>「汝等自知不配，故離神最近。」</td>
+            </tr>
+            <tr>
+              <th>政治立場</th>
+              <td>禮法保守派、神權秩序派</td>
+            </tr>
+            <tr>
+              <th>主要職責</th>
+              <td>國葬與加冕主持、傳統慣例裁定、魔法越界審查</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">歷史淵源</h3>
+        <p class="codex-p">
+          建國以前的諸族混戰時期，各大魔法氏族熱衷於競逐高階咒文與破壞力，「謙卑」的先祖則以隨軍書記官、祭司侍從與地方觀測者的身份活動於各勢力之間。家族早期文獻未見任何高深法術記載，內容多為戰場傷亡名冊、流民遷徙路線、農時節氣變化，以及貴族間因禮節失當而引發的連環仇殺紀錄。
+        </p>
+        <p class="codex-p">
+          王權初步確立與國教體系成形之際，各大家族爭相索取神授封號與聖裔地位。歷來拒絕自稱神明代言人的「謙卑」一脈，在建國大典的神諭降臨儀式中獲得了「自知不配，故離神最近」的判詞。初代國王據此將國家祭祀、歷史檔案與禮法編纂權全數交由該家族執掌，奠定其延續至今的席位根基。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">核心理念</h3>
+        <blockquote class="codex-quote">
+          <p>「合宜的封號、合禮的葬儀、沿襲百年的邊境舊例——此三者所能約束的人心，遠勝於十道攻城咒文。」</p>
+          <cite>——摘自《謙卑家訓·禮法卷》</cite>
+        </blockquote>
+
+        <h4 class="codex-h4">神意觀</h4>
+        <p class="codex-p">
+          「謙卑」一脈對魔法的起源並無神學上的執著，其審查重點在於防範人類僭越神明的職權。該派系認為，一旦魔法普及為隨手可得的日常工具，施法者便容易產生足以主宰萬物運作的傲慢。為防止人類生出取代神意的妄念，「謙卑」席位長期反對將魔法技術下放至民生與基層行政領域，主張維持凡人對自然與未知力量的敬畏。
+        </p>
+
+        <h4 class="codex-h4">禮制約束</h4>
+        <p class="codex-p">
+          「謙卑」家族深諳「約定俗成」在政治與社會運作中的束縛力，擅長利用傳統慣例、歷史先例與繁複禮儀來規範貴族行為。在議會交鋒中，一旦認定某項提案逾越了神聖秩序的邊界，該席位代表從不採取激烈爭辯或公開翻臉的方式，轉而援引歷代祖制、古典法條與程序瑕疵，以溫和謙遜的措辭反覆提出質詢、要求重審或拖延議程，直至提案方耗盡政治耐心與資源而自行撤案。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">社會形象</h3>
+        <p class="codex-p">
+          民間與朝野普遍將「謙卑」世家視為古老、威嚴且帶有距離感的守舊貴族。該家族歷代成員作風低調，排斥個人英雄主義，亦無拉攏平民博取聲望的傳統。
+        </p>
+        <p class="codex-p">
+          儘管缺乏親和力，該家族在王國歷次王權更迭、教派分裂與信仰危機中從無背叛國家的紀錄。每逢政局動盪、王室威信受損之際，「謙卑」一脈往往透過主持正統加冕禮、頒布合乎祖制的繼承詔書，為搖搖欲墜的國家體制維持最後的法統穩定。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">議會派系關係</h3>
+        <ul class="codex-list">
+          <li><strong>對「貞潔」席位：</strong>具備高度默契的精神同路人。「貞潔」負責維持魔法傳承的純粹，「謙卑」負責維護世俗與神聖秩序的疆界，兩派在重大保守議題上立場一致，鮮少需要事前私下串聯。</li>
+          <li><strong>對「節制」席位：</strong>議會表決時的常態盟友。雙方在維持現狀上目標相同，惟「謙卑」派系內部偶爾會對「節制」側重世俗利益與損益計算的行事邏輯流露輕微的不以為然。</li>
+          <li><strong>對「勤勉」及「慷慨」席位：</strong>無公開敵對關係，但在政務往來中始終保持審慎距離。在「謙卑」家族眼中，兩者積極推動社會變革與資源擴張的舉措，無異於一場隨時可能失控的大型社會實驗。</li>
+          <li><strong>對「寬容」席位：</strong>肯定其體恤民情與化解矛盾的善意，但在私下評估中，將其過度遷就個體處境的作法視為缺乏神聖敬畏的人性軟弱。</li>
+          <li><strong>對「忍耐」席位：</strong>尊重其衡量現實局勢的政治判斷力，但對於該派系為求大局穩定而頻繁在法統原則上退讓的作風頗有微詞。</li>
+        </ul>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">軼聞與設定補充</h3>
+        <ul class="codex-list">
+          <li><strong>「萬卷拒斥」：</strong>議會內部流傳的政治術語。指某項改革法案在提交後，遭到「謙卑」席位附上數十卷歷代先例與禮法衝突報告要求「補充說明」，實質上等同於宣告該法案永久擱置。</li>
+          <li><strong>史官筆法：</strong>王國正史均由「謙卑」家族門生主筆。據傳凡在生前妄圖挑戰神聖禮制或濫用魔力自詡如神的權貴，死後在國史中均不會留下全名，僅以職銜與罪名代稱，以此作為家族特有的身後懲戒。</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const modal = document.getElementById("humility-codex-modal");
+    const closeBtn = document.getElementById("close-humility-codex");
+    const spotlightContainer = document.getElementById("spotlight-dossier");
+
+    function openHumilityCodex() {
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeHumilityCodex() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeHumilityCodex);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeHumilityCodex();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        closeHumilityCodex();
+      }
+    });
+
+    // 1. 在下方【謙卑】卡片右下角掛載「閱覽世家卷宗」按鈕
+    function enhanceHumilityCard() {
+      const card = document.getElementById("card-humility");
+      if (!card || card.dataset.codexBound === "true") return;
+      card.dataset.codexBound = "true";
+
+      const footer = card.querySelector(".card-footer");
+      if (footer && footer.lastElementChild) {
+        const badge = document.createElement("button");
+        badge.type = "button";
+        badge.className = "card-codex-badge";
+        badge.textContent = "閱覽世家卷宗 ❖";
+        badge.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openHumilityCodex();
+        });
+        footer.replaceChild(badge, footer.lastElementChild);
+      }
+    }
+
+    // 2. 當上方議事廳選中【謙卑】席次時，自動於右側面板顯示調閱按鈕
+    function enhanceSpotlightPanel() {
+      if (!spotlightContainer) return;
+      const titleEl = spotlightContainer.querySelector(".dossier-name");
+      const existingBtn = spotlightContainer.querySelector(".codex-trigger-btn");
+      if (titleEl && titleEl.textContent.includes("謙卑") && !existingBtn) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "codex-trigger-btn";
+        btn.innerHTML = "<span>❖</span><span>調閱《謙卑》世家完整檔案</span>";
+        btn.addEventListener("click", openHumilityCodex);
+        spotlightContainer.appendChild(btn);
+      }
+    }
+
+    enhanceHumilityCard();
+    enhanceSpotlightPanel();
+
+    if (spotlightContainer) {
+      new MutationObserver(enhanceSpotlightPanel).observe(spotlightContainer, { childList: true });
+    }
+  })();
+</script>
+<!-- ==================== 【謙卑】擴充模組結束 ==================== -->
+<!-- ==================== 【寬容】政治聯合體卷宗擴充模組 ==================== -->
+<style>
+  /* 若單獨嵌入亦能完整運作；與其他席位模組並存時自動共用宮廷基底樣式 */
+  .codex-trigger-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(46, 22, 25, 0.92) 0%, rgba(22, 12, 14, 0.96) 100%);
+    border: 1px solid var(--gold-main);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    width: fit-content;
+  }
+  .codex-trigger-btn:hover {
+    border-color: #fff0c2;
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(78, 30, 34, 0.95) 0%, rgba(34, 16, 19, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(194, 155, 82, 0.35), inset 0 0 10px rgba(229, 195, 120, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* 【寬容】中立調和派：霧銀石板藍按鈕色調 */
+  .codex-trigger-btn.btn-neutral-tone {
+    background: linear-gradient(180deg, rgba(32, 40, 49, 0.92) 0%, rgba(16, 20, 25, 0.96) 100%);
+    border-color: #93a5b8;
+    color: #dce6f0;
+  }
+  .codex-trigger-btn.btn-neutral-tone:hover {
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(46, 58, 72, 0.95) 0%, rgba(22, 28, 35, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(147, 165, 184, 0.35), inset 0 0 10px rgba(229, 195, 120, 0.12);
+  }
+
+  .card-codex-badge {
+    padding: 5px 12px;
+    border: 1px solid var(--gold-main);
+    background: rgba(158, 42, 43, 0.22);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: all 0.28s ease;
+  }
+  .card-codex-badge:hover {
+    background: rgba(194, 155, 82, 0.25);
+    border-color: #fff0c2;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(229, 195, 120, 0.35);
+  }
+  .card-codex-badge.badge-neutral-tone {
+    background: rgba(108, 122, 137, 0.22);
+    border-color: #93a5b8;
+    color: #dce6f0;
+  }
+  .card-codex-badge.badge-neutral-tone:hover {
+    background: rgba(194, 155, 82, 0.24);
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+  }
+
+  .codex-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(5, 3, 4, 0.86);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.38s ease, visibility 0.38s ease;
+  }
+  .codex-modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .codex-modal-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    max-height: 88vh;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(112, 28, 32, 0.24) 0%, transparent 58%),
+      linear-gradient(180deg, #161012 0%, #0d090a 100%);
+    border: 1px solid var(--gold-main);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(158, 42, 43, 0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(18px) scale(0.985);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .codex-modal-backdrop.open .codex-modal-sheet {
+    transform: translateY(0) scale(1);
+  }
+  .codex-modal-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* 【寬容】灰冊檔案庫專屬石板銀灰氛圍 */
+  #tolerance-codex-modal .codex-modal-sheet {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(108, 122, 137, 0.26) 0%, rgba(30, 36, 44, 0.18) 42%, transparent 68%),
+      linear-gradient(180deg, #13161a 0%, #0a0c0e 100%);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 44px rgba(147, 165, 184, 0.18);
+  }
+  #tolerance-codex-modal .codex-seat-label {
+    color: #b5c4d4;
+  }
+  #tolerance-codex-modal .codex-quote {
+    background: linear-gradient(90deg, rgba(108, 122, 137, 0.18) 0%, rgba(16, 19, 24, 0.65) 100%);
+    border-left-color: #b5c4d4;
+  }
+
+  .codex-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.26);
+    background: rgba(10, 7, 8, 0.78);
+    position: relative;
+    z-index: 3;
+  }
+  .codex-topbar-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-main);
+  }
+  .codex-close-btn {
+    background: transparent;
+    border: 1px solid rgba(194, 155, 82, 0.35);
+    color: var(--parchment);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .codex-close-btn:hover {
+    border-color: var(--gold-bright);
+    color: var(--gold-bright);
+    background: rgba(194, 155, 82, 0.1);
+  }
+
+  .codex-scroll-body {
+    overflow-y: auto;
+    padding: 40px 46px 52px;
+    position: relative;
+    z-index: 3;
+  }
+  .codex-scroll-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .codex-scroll-body::-webkit-scrollbar-track {
+    background: #0b0809;
+  }
+  .codex-scroll-body::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+  }
+
+  .codex-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 34px;
+    align-items: start;
+    padding-bottom: 34px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    margin-bottom: 34px;
+  }
+  .codex-title-group {
+    margin-bottom: 18px;
+  }
+  .codex-seat-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    color: #df6d6e;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .codex-main-heading {
+    font-size: 2.3rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--ivory);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .codex-main-heading span {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--gold-main);
+  }
+  .codex-lead-text {
+    font-size: 0.98rem;
+    line-height: 1.95;
+    color: var(--parchment);
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(18, 12, 14, 0.9);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    font-size: 0.88rem;
+  }
+  .codex-meta-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 9px 14px;
+    background: rgba(194, 155, 82, 0.12);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    border-bottom: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--gold-bright);
+  }
+  .codex-meta-table th,
+  .codex-meta-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.14);
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .codex-meta-table tr:last-child th,
+  .codex-meta-table tr:last-child td {
+    border-bottom: none;
+  }
+  .codex-meta-table th {
+    width: 34%;
+    color: var(--gold-main);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-align: left;
+    border-right: 1px solid rgba(194, 155, 82, 0.14);
+    background: rgba(255, 255, 255, 0.015);
+    white-space: nowrap;
+  }
+  .codex-meta-table td {
+    color: var(--ivory);
+    letter-spacing: 0.04em;
+  }
+
+  .codex-section {
+    margin-bottom: 34px;
+  }
+  .codex-section:last-child {
+    margin-bottom: 0;
+  }
+  .codex-h3 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .codex-h3::before {
+    content: "❖";
+    font-size: 0.85rem;
+    color: var(--gold-main);
+  }
+  .codex-h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ivory);
+    margin: 20px 0 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--gold-main);
+  }
+  .codex-p {
+    font-size: 0.95rem;
+    line-height: 1.92;
+    color: var(--parchment);
+    margin-bottom: 14px;
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-quote {
+    margin: 18px 0 22px;
+    padding: 20px 26px;
+    background: linear-gradient(90deg, rgba(158, 42, 43, 0.14) 0%, rgba(20, 14, 16, 0.6) 100%);
+    border-left: 3px solid var(--gold-bright);
+    border-top: 1px solid rgba(194, 155, 82, 0.16);
+    border-bottom: 1px solid rgba(194, 155, 82, 0.16);
+  }
+  .codex-quote p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--ivory);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .codex-quote cite {
+    display: block;
+    text-align: right;
+    font-style: normal;
+    font-size: 0.84rem;
+    color: var(--gold-main);
+    letter-spacing: 0.12em;
+  }
+
+  .codex-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+  .codex-list li {
+    padding: 14px 18px;
+    background: rgba(22, 15, 17, 0.78);
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    font-size: 0.93rem;
+    line-height: 1.82;
+    color: var(--parchment);
+    text-align: justify;
+  }
+  .codex-list li strong {
+    color: var(--gold-bright);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 820px) {
+    .codex-hero {
+      grid-template-columns: 1fr;
+    }
+    .codex-scroll-body {
+      padding: 26px 22px 36px;
+    }
+    .codex-topbar {
+      padding: 14px 20px;
+    }
+    .codex-main-heading {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
+<!-- 寬容席位灰冊卷宗彈窗結構 -->
+<div class="codex-modal-backdrop" id="tolerance-codex-modal" role="dialog" aria-modal="true" aria-labelledby="tolerance-codex-title">
+  <div class="codex-modal-sheet">
+    <div class="codex-topbar">
+      <span class="codex-topbar-tag">ARCHIVUM CINEREUM ・ SEDES II ・ 樞密院灰冊檔案庫典藏</span>
+      <button type="button" class="codex-close-btn" id="close-tolerance-codex">✕ 封存卷宗</button>
+    </div>
+
+    <div class="codex-scroll-body">
+      <div class="codex-hero">
+        <div>
+          <div class="codex-title-group">
+            <span class="codex-seat-label">LIBRA MEDIATIONIS ・ 跨派系調停與多血統政治聯合體</span>
+            <h2 class="codex-main-heading" id="tolerance-codex-title">
+              「寬容」<span>TOLERANCE</span>
+            </h2>
+          </div>
+          <p class="codex-lead-text">
+            「寬容」（Tolerance）是王國七美德樞密議會的常設席位之一，亦是七席中唯一缺乏單一血統傳承的政治聯合體。該席位由建國初期的多支邊緣貴族、歸化外族與前朝遺民合流而成，在王國體制中長期執掌外務交涉、異端檔案保存、少數族裔安置及議會跨派系調停等職責。
+          </p>
+        </div>
+
+        <table class="codex-meta-table">
+          <caption>REGISTRUM CONFOEDERATIONIS ・ 檔案紀錄</caption>
+          <tbody>
+            <tr>
+              <th>席位稱號</th>
+              <td>寬容（Tolerance）</td>
+            </tr>
+            <tr>
+              <th>所屬機構</th>
+              <td>七美德樞密議會</td>
+            </tr>
+            <tr>
+              <th>家族構成</th>
+              <td>多血統聯姻世家、歸化學者家族聯合體</td>
+            </tr>
+            <tr>
+              <th>建國敕命</th>
+              <td>「銘記奉命遺忘之事。」</td>
+            </tr>
+            <tr>
+              <th>政治立場</th>
+              <td>折衷協調派、有限度開放派</td>
+            </tr>
+            <tr>
+              <th>主要職責</th>
+              <td>異文化與異端文獻歸檔、少數群體法權協調、議會爭端斡旋</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">歷史淵源</h3>
+        <p class="codex-p">
+          與其他擁有古老純血系譜的席位不同，「寬容」一脈源自建國戰爭期間處於夾縫地帶的邊緣群體，早期核心成員涵蓋通婚混血的邊境領主、流亡入籍的異邦移民、喪失封地的沒落舊族，以及戰敗後獲王室收編的敵國學者。由於內部缺乏共同信仰與單一血緣紐帶，該家族自成形之初便無統一的家規祖訓，僅憑藉在各方勢力傾軋間求存的政治本能維繫運作。
+        </p>
+        <p class="codex-p">
+          王國完成統一並推行單一國教以收攏人心時，各大家族忙於爭奪正統教義的詮釋權。「寬容」的初代代表則接下了初代國王私下頒布的特旨，負責在官方清洗與統一思想的過程中，秘密收容並留存遭查禁的異族信仰、失傳技藝與非主流學說，由此確立其在樞密議會中的特殊席位。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">核心理念</h3>
+        <blockquote class="codex-quote">
+          <p>「抹殺所留下的認知空白，往往比異端本身更具毀滅性。唯有摸清他者的運作邏輯，權力方有立足之地。」</p>
+          <cite>——摘自「寬容」席位內部政務備忘錄</cite>
+        </blockquote>
+
+        <h4 class="codex-h4">異端保存</h4>
+        <p class="codex-p">
+          「寬容」派系將掌握異質思想視為國家防禦與施政的必要前提，認為單一化的發展路線會削弱王國面對未知變局的應變能力。基於危機意識，該席位在魔法議題上傾向支持有限度的開放與制度實驗，反對將魔法壟斷於貴族血統與宗教儀式，同時亦警惕將其完全投入軍事功利用途，主張保留多元流派的研究空間以全面掌握魔法本質。
+        </p>
+
+        <h4 class="codex-h4">政治轉譯</h4>
+        <p class="codex-p">
+          在「寬容」席位的施政視角中，世俗政治無關正誤分明的道德裁決，實為各類未解矛盾的集合體。議會召開期間，該席位代表通常率先發言以梳理各方訴求，卻習慣留待最後一刻方才亮明投票立場。其日常政務重心在於充當各階層與派系間的「轉譯者」——將底層與改革派的躁動轉化為保守派得以理解的秩序隱憂，並將生硬的行政數據包裝為民間足以接受的溫和政策，藉此延緩矛盾激化，為各方留出轉圜餘地。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">社會評價與歷史定位</h3>
+        <p class="codex-p">
+          朝野上下對「寬容」席位的評價長期呈現兩極分化。受惠於其斡旋而免遭武力鎮壓的邊境少數族裔、外來商會與非正統魔法研究團體，普遍視該家族為體制內的庇護者；與此同時，強硬派貴族與民間激進群體則頻繁批評其立場曖昧、缺乏骨氣。
+        </p>
+        <p class="codex-p">
+          由於「寬容」一脈習慣替所有利益方陳述理由，卻從不為任何單一陣營付諸流血犧牲，每逢政局撕裂或改革受挫，該席位往往同時遭受正反雙方的猜忌與指責，在歷史記載中素有「獲得諒解之人」的稱號。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">議會派系關係</h3>
+        <ul class="codex-list">
+          <li><strong>對「謙卑」席位：</strong>表面維持合乎禮數的敬意，實則對其抱持戒心。「寬容」派系認為，一旦世俗秩序被賦予不可質疑的神聖性，政治協商與對話的空間便會隨之窒息。</li>
+          <li><strong>對「貞潔」席位：</strong>維持禮貌而疏遠的公務往來。不認同其將制度與傳統長期封凍的保守作法。</li>
+          <li><strong>對「勤勉」及「慷慨」席位：</strong>推動制度改革與實驗專案時的合作對象。惟當兩派推進速度過快、有引發社會撕裂之虞時，「寬容」席位往往會主動介入並要求放緩步調。</li>
+          <li><strong>對「節制」席位：</strong>兼具合作與對立的複雜關係。雙方均致力於防止局勢失控，但「節制」主張透過嚴格限縮來維持穩定，「寬容」則認為過度壓抑終將招致更猛烈的反撲。</li>
+          <li><strong>對「忍耐」席位：</strong>議會中行事氣質最為相近的盟友。兩者的差異體現在施政目標上：「忍耐」側重於以時間換取局勢自然平息，「寬容」則致力於在等待期間促成各方達成實質共識。</li>
+        </ul>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">軼聞與設定補充</h3>
+        <ul class="codex-list">
+          <li><strong>「灰冊檔案庫」：</strong>「寬容」家族宅邸地下設有獨立於國史館之外的文獻庫，專門收錄亡國史料、異端審判原卷及民間禁忌傳說。據傳新任樞密議員上任前，均須在「寬容」代表的陪同下入庫閱覽一日，以了解王國光鮮歷史背後的暗面。</li>
+          <li><strong>家徽與姓氏傳統：</strong>由於家族內部由多個血脈組成，歷代「寬容」席位繼承人突破單純的長子繼承傳統，慣由各支系推舉最具交涉手腕的子弟過繼至主家繼承頭銜；其家族紋章亦無固定圖騰，僅以交錯的橄欖枝與天平作為席位印記。</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const modal = document.getElementById("tolerance-codex-modal");
+    const closeBtn = document.getElementById("close-tolerance-codex");
+    const spotlightContainer = document.getElementById("spotlight-dossier");
+
+    function openToleranceCodex() {
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeToleranceCodex() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeToleranceCodex);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeToleranceCodex();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        closeToleranceCodex();
+      }
+    });
+
+    // 1. 在下方【寬容】卡片右下角掛載「閱覽世家卷宗」按鈕
+    function enhanceToleranceCard() {
+      const card = document.getElementById("card-tolerance");
+      if (!card || card.dataset.codexBound === "true") return;
+      card.dataset.codexBound = "true";
+
+      const footer = card.querySelector(".card-footer");
+      if (footer && footer.lastElementChild) {
+        const badge = document.createElement("button");
+        badge.type = "button";
+        badge.className = "card-codex-badge badge-neutral-tone";
+        badge.textContent = "閱覽世家卷宗 ❖";
+        badge.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openToleranceCodex();
+        });
+        footer.replaceChild(badge, footer.lastElementChild);
+      }
+    }
+
+    // 2. 當上方議事廳選中【寬容】席次時，自動於右側面板顯示調閱按鈕
+    function enhanceSpotlightPanel() {
+      if (!spotlightContainer) return;
+      const titleEl = spotlightContainer.querySelector(".dossier-name");
+      const existingBtn = spotlightContainer.querySelector(".codex-trigger-btn");
+      if (titleEl && titleEl.textContent.includes("寬容") && !existingBtn) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "codex-trigger-btn btn-neutral-tone";
+        btn.innerHTML = "<span>❖</span><span>調閱《寬容》灰冊完整檔案</span>";
+        btn.addEventListener("click", openToleranceCodex);
+        spotlightContainer.appendChild(btn);
+      }
+    }
+
+    enhanceToleranceCard();
+    enhanceSpotlightPanel();
+
+    if (spotlightContainer) {
+      new MutationObserver(enhanceSpotlightPanel).observe(spotlightContainer, { childList: true });
+    }
+  })();
+</script>
+<!-- ==================== 【寬容】擴充模組結束 ==================== -->
+<!-- ==================== 【忍耐】實務官僚世家卷宗擴充模組 ==================== -->
+<style>
+  /* 若單獨嵌入亦能完整運作；與其他席位模組並存時自動共用宮廷基底樣式 */
+  .codex-trigger-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(46, 22, 25, 0.92) 0%, rgba(22, 12, 14, 0.96) 100%);
+    border: 1px solid var(--gold-main);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    width: fit-content;
+  }
+  .codex-trigger-btn:hover {
+    border-color: #fff0c2;
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(78, 30, 34, 0.95) 0%, rgba(34, 16, 19, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(194, 155, 82, 0.35), inset 0 0 10px rgba(229, 195, 120, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* 【忍耐】玄鐵岩灰按鈕色調 */
+  .codex-trigger-btn.btn-patience-tone {
+    background: linear-gradient(180deg, rgba(30, 33, 36, 0.94) 0%, rgba(15, 17, 19, 0.98) 100%);
+    border-color: #8f99a3;
+    color: #d8dee4;
+  }
+  .codex-trigger-btn.btn-patience-tone:hover {
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(44, 49, 54, 0.96) 0%, rgba(20, 23, 26, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(143, 153, 163, 0.32), inset 0 0 10px rgba(229, 195, 120, 0.12);
+  }
+
+  .card-codex-badge {
+    padding: 5px 12px;
+    border: 1px solid var(--gold-main);
+    background: rgba(158, 42, 43, 0.22);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: all 0.28s ease;
+  }
+  .card-codex-badge:hover {
+    background: rgba(194, 155, 82, 0.25);
+    border-color: #fff0c2;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(229, 195, 120, 0.35);
+  }
+  .card-codex-badge.badge-patience-tone {
+    background: rgba(92, 102, 112, 0.22);
+    border-color: #8f99a3;
+    color: #d8dee4;
+  }
+  .card-codex-badge.badge-patience-tone:hover {
+    background: rgba(194, 155, 82, 0.24);
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+  }
+
+  .codex-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(5, 3, 4, 0.86);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.38s ease, visibility 0.38s ease;
+  }
+  .codex-modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .codex-modal-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    max-height: 88vh;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(112, 28, 32, 0.24) 0%, transparent 58%),
+      linear-gradient(180deg, #161012 0%, #0d090a 100%);
+    border: 1px solid var(--gold-main);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(158, 42, 43, 0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(18px) scale(0.985);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .codex-modal-backdrop.open .codex-modal-sheet {
+    transform: translateY(0) scale(1);
+  }
+  .codex-modal-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* 【忍耐】黑皮災荒錄專屬玄鐵岩灰氛圍 */
+  #patience-codex-modal .codex-modal-sheet {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(96, 104, 112, 0.22) 0%, rgba(36, 32, 28, 0.22) 45%, transparent 70%),
+      linear-gradient(180deg, #121315 0%, #090a0b 100%);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.96), 0 0 42px rgba(120, 130, 140, 0.16);
+  }
+  #patience-codex-modal .codex-seat-label {
+    color: #adb8c2;
+  }
+  #patience-codex-modal .codex-quote {
+    background: linear-gradient(90deg, rgba(96, 104, 112, 0.18) 0%, rgba(15, 16, 18, 0.72) 100%);
+    border-left-color: #adb8c2;
+  }
+
+  .codex-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.26);
+    background: rgba(10, 7, 8, 0.78);
+    position: relative;
+    z-index: 3;
+  }
+  .codex-topbar-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-main);
+  }
+  .codex-close-btn {
+    background: transparent;
+    border: 1px solid rgba(194, 155, 82, 0.35);
+    color: var(--parchment);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .codex-close-btn:hover {
+    border-color: var(--gold-bright);
+    color: var(--gold-bright);
+    background: rgba(194, 155, 82, 0.1);
+  }
+
+  .codex-scroll-body {
+    overflow-y: auto;
+    padding: 40px 46px 52px;
+    position: relative;
+    z-index: 3;
+  }
+  .codex-scroll-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .codex-scroll-body::-webkit-scrollbar-track {
+    background: #0b0809;
+  }
+  .codex-scroll-body::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+  }
+
+  .codex-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 34px;
+    align-items: start;
+    padding-bottom: 34px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    margin-bottom: 34px;
+  }
+  .codex-title-group {
+    margin-bottom: 18px;
+  }
+  .codex-seat-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    color: #df6d6e;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .codex-main-heading {
+    font-size: 2.3rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--ivory);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .codex-main-heading span {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--gold-main);
+  }
+  .codex-lead-text {
+    font-size: 0.98rem;
+    line-height: 1.95;
+    color: var(--parchment);
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(18, 12, 14, 0.9);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    font-size: 0.88rem;
+  }
+  .codex-meta-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 9px 14px;
+    background: rgba(194, 155, 82, 0.12);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    border-bottom: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--gold-bright);
+  }
+  .codex-meta-table th,
+  .codex-meta-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.14);
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .codex-meta-table tr:last-child th,
+  .codex-meta-table tr:last-child td {
+    border-bottom: none;
+  }
+  .codex-meta-table th {
+    width: 34%;
+    color: var(--gold-main);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-align: left;
+    border-right: 1px solid rgba(194, 155, 82, 0.14);
+    background: rgba(255, 255, 255, 0.015);
+    white-space: nowrap;
+  }
+  .codex-meta-table td {
+    color: var(--ivory);
+    letter-spacing: 0.04em;
+  }
+
+  .codex-section {
+    margin-bottom: 34px;
+  }
+  .codex-section:last-child {
+    margin-bottom: 0;
+  }
+  .codex-h3 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .codex-h3::before {
+    content: "❖";
+    font-size: 0.85rem;
+    color: var(--gold-main);
+  }
+  .codex-h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ivory);
+    margin: 20px 0 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--gold-main);
+  }
+  .codex-p {
+    font-size: 0.95rem;
+    line-height: 1.92;
+    color: var(--parchment);
+    margin-bottom: 14px;
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-quote {
+    margin: 18px 0 22px;
+    padding: 20px 26px;
+    background: linear-gradient(90deg, rgba(158, 42, 43, 0.14) 0%, rgba(20, 14, 16, 0.6) 100%);
+    border-left: 3px solid var(--gold-bright);
+    border-top: 1px solid rgba(194, 155, 82, 0.16);
+    border-bottom: 1px solid rgba(194, 155, 82, 0.16);
+  }
+  .codex-quote p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--ivory);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .codex-quote cite {
+    display: block;
+    text-align: right;
+    font-style: normal;
+    font-size: 0.84rem;
+    color: var(--gold-main);
+    letter-spacing: 0.12em;
+  }
+
+  .codex-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+  .codex-list li {
+    padding: 14px 18px;
+    background: rgba(22, 15, 17, 0.78);
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    font-size: 0.93rem;
+    line-height: 1.82;
+    color: var(--parchment);
+    text-align: justify;
+  }
+  .codex-list li strong {
+    color: var(--gold-bright);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 820px) {
+    .codex-hero {
+      grid-template-columns: 1fr;
+    }
+    .codex-scroll-body {
+      padding: 26px 22px 36px;
+    }
+    .codex-topbar {
+      padding: 14px 20px;
+    }
+    .codex-main-heading {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
+<!-- 忍耐席位常平與災荒卷宗彈窗結構 -->
+<div class="codex-modal-backdrop" id="patience-codex-modal" role="dialog" aria-modal="true" aria-labelledby="patience-codex-title">
+  <div class="codex-modal-sheet">
+    <div class="codex-topbar">
+      <span class="codex-topbar-tag">ARCHIVUM ANNONAE ・ SEDES III ・ 樞密院常平倉儲與災荒底冊</span>
+      <button type="button" class="codex-close-btn" id="close-patience-codex">✕ 封存卷宗</button>
+    </div>
+
+    <div class="codex-scroll-body">
+      <div class="codex-hero">
+        <div>
+          <div class="codex-title-group">
+            <span class="codex-seat-label">LIBRA MEDIATIONIS ・ 風險評估與底線維穩官僚世家</span>
+            <h2 class="codex-main-heading" id="patience-codex-title">
+              「忍耐」<span>PATIENCE</span>
+            </h2>
+          </div>
+          <p class="codex-lead-text">
+            「忍耐」（Patience）是王國七美德樞密議會的常設席位之一，由世代執掌國家儲備、災荒應變、戶政統計與基層司法維持的實務派官僚世家出任。該席位無神諭加持，亦無顯赫的秘術傳統，憑藉在歷次國難中維持行政運轉的危機處理能力，成為王國體制中專司風險評估與底線維穩的代表。
+          </p>
+        </div>
+
+        <table class="codex-meta-table">
+          <caption>REGISTRUM ADMINISTRATIONIS ・ 檔案紀錄</caption>
+          <tbody>
+            <tr>
+              <th>席位稱號</th>
+              <td>忍耐（Patience）</td>
+            </tr>
+            <tr>
+              <th>所屬機構</th>
+              <td>七美德樞密議會</td>
+            </tr>
+            <tr>
+              <th>執掌領域</th>
+              <td>常平倉儲、災疫應變、戶籍稅賦統計、基層法庭維持</td>
+            </tr>
+            <tr>
+              <th>家族格言</th>
+              <td>「阻止局勢惡化，即為功績。」</td>
+            </tr>
+            <tr>
+              <th>政治立場</th>
+              <td>現實主義維穩派、風險管控派</td>
+            </tr>
+            <tr>
+              <th>主要職責</th>
+              <td>政策承受力核算、戰後與災後重建、國家戰略物資調度</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">歷史淵源</h3>
+        <p class="codex-p">
+          「忍耐」一脈發跡於王國歷史上數次瀕臨滅亡的動盪時期。當戰爭、大瘟疫與連年飢荒先後重創國土，王室與各大魔法世家無力顧及崩潰的內政時，「忍耐」的先祖受命接管了國庫空虛、律法停擺的殘破局勢。在缺乏軍事援助與宗教號召的條件下，該家族依靠清點人口、配給口糧、重開地方簡易法庭等繁瑣的行政手段，逐步平息了各地的流民騷亂。
+        </p>
+        <p class="codex-p">
+          由於家族崛起於國家最狼狽的歷史階段，「忍耐」世家的內部文獻鮮少記載英雄事蹟或宏大理想，通篇皆為歷次大災疫的死亡人數、糧價波動曲線與政策失敗後的善後帳目。這段發家史奠定了該席位延續至今的職能定位。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">核心理念</h3>
+        <blockquote class="codex-quote">
+          <p>「提案通過之前，請先回答幾個問題：地方衙門能否負荷？秋收糧儲會否吃緊？倘若試點崩盤，由哪個衙門出面收屍？」</p>
+          <cite>——摘自「忍耐」席位議會質詢紀錄</cite>
+        </blockquote>
+
+        <h4 class="codex-h4">反躍進立場</h4>
+        <p class="codex-p">
+          「忍耐」派系對高調的道德口號與理想主義抱持冷淡態度。其家族檔案中收錄了大量「立意良善卻因執行失當而引發慘重死傷」的歷史案例，使其在決策時習慣剝離意識形態，單純從社會承載力出發進行評估。在魔法普及與技術革新議題上，該席位重點防範因生產力或武力短期暴增而導致的社會結構失衡，認為任何超越基層制度消化速度的「進步」，最終都將轉化為由平民承擔的高昂災難帳單。
+        </p>
+
+        <h4 class="codex-h4">漸進折衝</h4>
+        <p class="codex-p">
+          在樞密議會中，「忍耐」代表從不主動提出宏大的改革藍圖，其核心職權體現在對各派提案進行壓力測試。每當涉及制度變動或大型建設，「忍耐」席位均會提交詳盡的後勤損耗與風險預估報告，針對司法負荷、糧食供應鏈及失敗退場機制逐一發難。這種凡事預作最壞打算、要求分階段緩步推行的作風，常令改革派將其批評為遲疑保守的絆腳石。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">社會評價</h3>
+        <p class="codex-p">
+          在七美德席位中，「忍耐」家族的民間存在感與傳奇色彩最為淡薄。百姓日常少有如感激「慷慨」般稱頌其恩德之舉，亦鮮見如仰望「謙卑」般的敬畏之心；吟遊詩人的傳唱曲目中幾乎不見該家族成員的身影。
+        </p>
+        <p class="codex-p">
+          該家族的政治價值通常僅在重大災變過後顯現。當洪水退去、疫病平息或戰事落幕，民眾往往會在廢墟間發現官倉仍在平價放糧、地方法庭照常受理契約糾紛、新生兒依然能按時登記戶籍。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">議會派系關係</h3>
+        <ul class="codex-list">
+          <li><strong>對「寬容」席位：</strong>議會內合作最為默契的搭檔。雙方均致力於避免社會撕裂與流血衝突，在緩解各階層矛盾的實務上步調高度協調。</li>
+          <li><strong>對「勤勉」席位：</strong>認可其行政效率與建設能力，但在對方試圖擴大工程規模或加速制度改革時，常以基層負荷過重為由出面制止。</li>
+          <li><strong>對「慷慨」席位：</strong>長期保持審慎戒備。在「忍耐」的帳目核算邏輯中，缺乏長遠財源支撐的善舉與福利擴張，本質上皆為透支國力的高風險負債。</li>
+          <li><strong>對「節制」席位：</strong>在風險控管與財政紀律上立場相近，但「忍耐」一脈以現實存續為考量，對「節制」派系夾雜道德審判與禁慾主義的施政口吻並不苟同。</li>
+          <li><strong>對「謙卑」及「貞潔」席位：</strong>維持體制內的尊重與禮數。惟一旦遭遇危及國民溫飽與政權存續的緊急狀態，「忍耐」席位會毫不猶豫地主張暫時擱置繁複祖制與神聖教條，優先確保當下的生存需求。</li>
+        </ul>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">軼聞與設定補充</h3>
+        <ul class="codex-list">
+          <li><strong>「黑皮災荒錄」：</strong>「忍耐」家族世代編纂的內部工具書，按年份詳細記載了王國建國以來所有天災人禍期間的物價漲幅、暴動臨界點與配給公式。</li>
+          <li><strong>無碑家墓：</strong>與其他大貴族修建宏偉陵寢的傳統相異，「忍耐」世家的歷代墓園僅立無字矮石，僅在家族內部的戶籍底冊上標註生卒年月與任內度過的災年次數。</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const modal = document.getElementById("patience-codex-modal");
+    const closeBtn = document.getElementById("close-patience-codex");
+    const spotlightContainer = document.getElementById("spotlight-dossier");
+
+    function openPatienceCodex() {
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closePatienceCodex() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closePatienceCodex);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closePatienceCodex();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        closePatienceCodex();
+      }
+    });
+
+    // 1. 在下方【忍耐】卡片右下角掛載「閱覽世家卷宗」按鈕
+    function enhancePatienceCard() {
+      const card = document.getElementById("card-patience");
+      if (!card || card.dataset.codexBound === "true") return;
+      card.dataset.codexBound = "true";
+
+      const footer = card.querySelector(".card-footer");
+      if (footer && footer.lastElementChild) {
+        const badge = document.createElement("button");
+        badge.type = "button";
+        badge.className = "card-codex-badge badge-patience-tone";
+        badge.textContent = "閱覽世家卷宗 ❖";
+        badge.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openPatienceCodex();
+        });
+        footer.replaceChild(badge, footer.lastElementChild);
+      }
+    }
+
+    // 2. 當上方議事廳選中【忍耐】席次時，自動於右側面板顯示調閱按鈕
+    function enhanceSpotlightPanel() {
+      if (!spotlightContainer) return;
+      const titleEl = spotlightContainer.querySelector(".dossier-name");
+      const existingBtn = spotlightContainer.querySelector(".codex-trigger-btn");
+      if (titleEl && titleEl.textContent.includes("忍耐") && !existingBtn) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "codex-trigger-btn btn-patience-tone";
+        btn.innerHTML = "<span>❖</span><span>調閱《忍耐》黑皮災荒底冊</span>";
+        btn.addEventListener("click", openPatienceCodex);
+        spotlightContainer.appendChild(btn);
+      }
+    }
+
+    enhancePatienceCard();
+    enhanceSpotlightPanel();
+
+    if (spotlightContainer) {
+      new MutationObserver(enhanceSpotlightPanel).observe(spotlightContainer, { childList: true });
+    }
+  })();
+</script>
+<!-- ==================== 【忍耐】擴充模組結束 ==================== -->
+<!-- ==================== 【勤勉】技術官僚世家卷宗擴充模組 ==================== -->
+<style>
+  /* 若單獨嵌入亦能完整運作；與其他席位模組並存時自動共用宮廷基底樣式 */
+  .codex-trigger-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(46, 22, 25, 0.92) 0%, rgba(22, 12, 14, 0.96) 100%);
+    border: 1px solid var(--gold-main);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    width: fit-content;
+  }
+  .codex-trigger-btn:hover {
+    border-color: #fff0c2;
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(78, 30, 34, 0.95) 0%, rgba(34, 16, 19, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(194, 155, 82, 0.35), inset 0 0 10px rgba(229, 195, 120, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* 【勤勉】激進改革派：魔導青銅翠玉按鈕色調 */
+  .codex-trigger-btn.btn-radical-tone {
+    background: linear-gradient(180deg, rgba(20, 48, 44, 0.94) 0%, rgba(11, 25, 23, 0.98) 100%);
+    border-color: #55a89a;
+    color: #c7ece5;
+  }
+  .codex-trigger-btn.btn-radical-tone:hover {
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(30, 68, 62, 0.96) 0%, rgba(15, 34, 31, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(85, 168, 154, 0.36), inset 0 0 10px rgba(229, 195, 120, 0.14);
+  }
+
+  .card-codex-badge {
+    padding: 5px 12px;
+    border: 1px solid var(--gold-main);
+    background: rgba(158, 42, 43, 0.22);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: all 0.28s ease;
+  }
+  .card-codex-badge:hover {
+    background: rgba(194, 155, 82, 0.25);
+    border-color: #fff0c2;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(229, 195, 120, 0.35);
+  }
+  .card-codex-badge.badge-radical-tone {
+    background: rgba(44, 110, 99, 0.24);
+    border-color: #55a89a;
+    color: #c7ece5;
+  }
+  .card-codex-badge.badge-radical-tone:hover {
+    background: rgba(194, 155, 82, 0.24);
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+  }
+
+  .codex-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(5, 3, 4, 0.86);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.38s ease, visibility 0.38s ease;
+  }
+  .codex-modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .codex-modal-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    max-height: 88vh;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(112, 28, 32, 0.24) 0%, transparent 58%),
+      linear-gradient(180deg, #161012 0%, #0d090a 100%);
+    border: 1px solid var(--gold-main);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(158, 42, 43, 0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(18px) scale(0.985);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .codex-modal-backdrop.open .codex-modal-sheet {
+    transform: translateY(0) scale(1);
+  }
+  .codex-modal-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* 【勤勉】魔導工學總綱專屬青銅翠玉氛圍 */
+  #diligence-codex-modal .codex-modal-sheet {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(44, 110, 99, 0.26) 0%, rgba(20, 38, 35, 0.2) 45%, transparent 70%),
+      linear-gradient(180deg, #101716 0%, #080c0b 100%);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.96), 0 0 44px rgba(68, 150, 136, 0.2);
+  }
+  #diligence-codex-modal .codex-seat-label {
+    color: #6bc4b5;
+  }
+  #diligence-codex-modal .codex-quote {
+    background: linear-gradient(90deg, rgba(44, 110, 99, 0.2) 0%, rgba(13, 20, 19, 0.72) 100%);
+    border-left-color: #6bc4b5;
+  }
+
+  .codex-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.26);
+    background: rgba(10, 7, 8, 0.78);
+    position: relative;
+    z-index: 3;
+  }
+  .codex-topbar-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-main);
+  }
+  .codex-close-btn {
+    background: transparent;
+    border: 1px solid rgba(194, 155, 82, 0.35);
+    color: var(--parchment);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .codex-close-btn:hover {
+    border-color: var(--gold-bright);
+    color: var(--gold-bright);
+    background: rgba(194, 155, 82, 0.1);
+  }
+
+  .codex-scroll-body {
+    overflow-y: auto;
+    padding: 40px 46px 52px;
+    position: relative;
+    z-index: 3;
+  }
+  .codex-scroll-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .codex-scroll-body::-webkit-scrollbar-track {
+    background: #0b0809;
+  }
+  .codex-scroll-body::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+  }
+
+  .codex-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 34px;
+    align-items: start;
+    padding-bottom: 34px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    margin-bottom: 34px;
+  }
+  .codex-title-group {
+    margin-bottom: 18px;
+  }
+  .codex-seat-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    color: #df6d6e;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .codex-main-heading {
+    font-size: 2.3rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--ivory);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .codex-main-heading span {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--gold-main);
+  }
+  .codex-lead-text {
+    font-size: 0.98rem;
+    line-height: 1.95;
+    color: var(--parchment);
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(18, 12, 14, 0.9);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    font-size: 0.88rem;
+  }
+  .codex-meta-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 9px 14px;
+    background: rgba(194, 155, 82, 0.12);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    border-bottom: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--gold-bright);
+  }
+  .codex-meta-table th,
+  .codex-meta-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.14);
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .codex-meta-table tr:last-child th,
+  .codex-meta-table tr:last-child td {
+    border-bottom: none;
+  }
+  .codex-meta-table th {
+    width: 34%;
+    color: var(--gold-main);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-align: left;
+    border-right: 1px solid rgba(194, 155, 82, 0.14);
+    background: rgba(255, 255, 255, 0.015);
+    white-space: nowrap;
+  }
+  .codex-meta-table td {
+    color: var(--ivory);
+    letter-spacing: 0.04em;
+  }
+
+  .codex-section {
+    margin-bottom: 34px;
+  }
+  .codex-section:last-child {
+    margin-bottom: 0;
+  }
+  .codex-h3 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .codex-h3::before {
+    content: "❖";
+    font-size: 0.85rem;
+    color: var(--gold-main);
+  }
+  .codex-h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ivory);
+    margin: 20px 0 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--gold-main);
+  }
+  .codex-p {
+    font-size: 0.95rem;
+    line-height: 1.92;
+    color: var(--parchment);
+    margin-bottom: 14px;
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-quote {
+    margin: 18px 0 22px;
+    padding: 20px 26px;
+    background: linear-gradient(90deg, rgba(158, 42, 43, 0.14) 0%, rgba(20, 14, 16, 0.6) 100%);
+    border-left: 3px solid var(--gold-bright);
+    border-top: 1px solid rgba(194, 155, 82, 0.16);
+    border-bottom: 1px solid rgba(194, 155, 82, 0.16);
+  }
+  .codex-quote p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--ivory);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .codex-quote cite {
+    display: block;
+    text-align: right;
+    font-style: normal;
+    font-size: 0.84rem;
+    color: var(--gold-main);
+    letter-spacing: 0.12em;
+  }
+
+  .codex-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+  .codex-list li {
+    padding: 14px 18px;
+    background: rgba(22, 15, 17, 0.78);
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    font-size: 0.93rem;
+    line-height: 1.82;
+    color: var(--parchment);
+    text-align: justify;
+  }
+  .codex-list li strong {
+    color: var(--gold-bright);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 820px) {
+    .codex-hero {
+      grid-template-columns: 1fr;
+    }
+    .codex-scroll-body {
+      padding: 26px 22px 36px;
+    }
+    .codex-topbar {
+      padding: 14px 20px;
+    }
+    .codex-main-heading {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
+<!-- 勤勉席位魔導工學與基建卷宗彈窗結構 -->
+<div class="codex-modal-backdrop" id="diligence-codex-modal" role="dialog" aria-modal="true" aria-labelledby="diligence-codex-title">
+  <div class="codex-modal-sheet">
+    <div class="codex-topbar">
+      <span class="codex-topbar-tag">ARCHIVUM INDUSTRIAE ・ SEDES IV ・ 樞密院魔導工學與營造總檔</span>
+      <button type="button" class="codex-close-btn" id="close-diligence-codex">✕ 封存卷宗</button>
+    </div>
+
+    <div class="codex-scroll-body">
+      <div class="codex-hero">
+        <div>
+          <div class="codex-title-group">
+            <span class="codex-seat-label">PACTUM NOVATIONIS ・ 工匠氏族出身之技術官僚世家</span>
+            <h2 class="codex-main-heading" id="diligence-codex-title">
+              「勤勉」<span>DILIGENCE</span>
+            </h2>
+          </div>
+          <p class="codex-lead-text">
+            「勤勉」（Diligence）是王國七美德樞密議會的常設席位之一，由北方工匠氏族出身的技術官僚世家出任。該家族無古老神諭或顯赫戰功背景，憑藉在建國初期大飢荒中改良農業魔導技術的實績晉身中樞，長期執掌王國基礎工程、工礦冶煉、魔力定量研究及公共設施營運等實務部門。
+          </p>
+        </div>
+
+        <table class="codex-meta-table">
+          <caption>REGISTRUM ARTIFICUM ・ 檔案紀錄</caption>
+          <tbody>
+            <tr>
+              <th>席位稱號</th>
+              <td>勤勉（Diligence）</td>
+            </tr>
+            <tr>
+              <th>所屬機構</th>
+              <td>七美德樞密議會</td>
+            </tr>
+            <tr>
+              <th>執掌領域</th>
+              <td>魔導工學、農田水利、礦冶營造、市政基礎設施</td>
+            </tr>
+            <tr>
+              <th>家族格言</th>
+              <td>「可受檢驗者為真，可常運轉者為正。」</td>
+            </tr>
+            <tr>
+              <th>政治立場</th>
+              <td>技術實用派、魔力工具化改革派</td>
+            </tr>
+            <tr>
+              <th>主要職責</th>
+              <td>魔力定量標準制定、國家工程督造、應用魔法研發審查</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">歷史淵源</h3>
+        <p class="codex-p">
+          「勤勉」一脈的先祖原為王國北方礦山腳下的平民工匠氏族，世代專精探礦、冶煉、水利灌溉與土木構築等世俗技藝。王國建立初期爆發史稱「百年饑荒」的大規模災變，各地農田因戰亂詛咒與魔力過度汲取而大片荒蕪，傳統貴族與宗教勢力深陷正統之爭，無力緩解糧食危機。
+        </p>
+        <p class="codex-p">
+          在此期間，該工匠家族傾盡家產，著手研究低階溫和治療術與地脈學的結合應用，試圖透過人工魔力迴路穩定土壤環境並縮短作物生長週期。這項嘗試在當時遭傳統施法者譏諷為「妄圖以鋤頭對抗神怒」。歷經數十次試驗失敗後，該家族於飢荒寒冬中在最後一塊貧瘠試驗田內成功培育出高產耐寒塊莖作物，憑藉挽救北方數省人口的功績獲王室破格冊封，正式列入七美德席位。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">核心理念與施政手腕</h3>
+        <blockquote class="codex-quote">
+          <p>「神話皆為先民留下的粗略說明書。拆解現象、完成實測，始為對天地法則真正的敬意。」</p>
+          <cite>——摘自《勤勉工學總綱·序言》</cite>
+        </blockquote>
+
+        <h4 class="codex-h4">現象解析</h4>
+        <p class="codex-p">
+          「勤勉」派系將魔法定性為尚待全面解析的自然物理現象，將古代神話與秘儀視為早期人類對未知規律的粗淺紀錄。該家族對「魔法神聖論」缺乏共鳴，主張將龐大的魔力資源長期封鎖於少數貴族血脈與宗教儀式中屬於嚴重的效能浪費。其施政核心在於推動萬物（涵蓋魔法在內）的工具化與標準化，旨在透過提升轉換效率來充實國力與物質產出。
+        </p>
+
+        <h4 class="codex-h4">定量管理</h4>
+        <p class="codex-p">
+          作為王國歷史上首個建立「魔力定量測算體系」的派系，「勤勉」席位對魔法軍事化與工業化抱持務實的開放態度——凡具備明確測試數據、安全邊界與緊急關閉機制的技術方案，均可納入評估與試行。在樞密議會的政策辯論中，該席位代表習慣直接呈交產能報表、損耗率與可行性模型，鮮少涉及善惡褒貶或信仰立場。這種純粹以數據與效能為導向的發言風格，常令保守派與宗教界感到不安，並招致「冷血無信」的批評。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">社會評價</h3>
+        <p class="codex-p">
+          在王國歷史文獻與民間傳說中，「勤勉」世家幾乎未曾留下任何個人英雄史詩。由於其職權高度集中於幕後基建與技術標準維護，該家族在百姓日常生活中的存在感相當稀薄。
+        </p>
+        <p class="codex-p">
+          城鎮居民少有因官道平整而歌頌工部之舉，面對準時亮起的市政魔導街燈亦習以為常，鮮少專程向官員致謝。這種將一切基礎運轉視為「理所當然」的社會常態，正是「勤勉」一脈追求的最高施政成果——將高深莫測的魔法徹底拆解為無聲運行的日常市政系統。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">議會派系關係</h3>
+        <ul class="codex-list">
+          <li><strong>對「謙卑」及「貞潔」席位：</strong>表面維持合乎體制的公務尊重，私下評估則將兩派堅守的祖制與秘儀視為「未經實證檢驗的延遲風險」，對其拒絕公開技術參數的作風頗有微詞。</li>
+          <li><strong>對「節制」席位：</strong>議會內交鋒最為頻繁的對手。「節制」席位傾向透過縮減規模與嚴格禁令來規避風險，「勤勉」席位則持續爭取更寬裕的技術測試額度與試點空間。</li>
+          <li><strong>對「慷慨」席位：</strong>推動民生建設與公共福利專案時的常態合作夥伴。在具體執行層面，「勤勉」代表通常扮演核算成本與提醒財政預算上限的角色。</li>
+          <li><strong>對「寬容」席位：</strong>肯定其跨派系斡旋與整合異文化技術的能力，但在涉及關鍵工程進度時，常反對為遷就各方共識而拖延必要的實地測試。</li>
+          <li><strong>對「忍耐」席位：</strong>在國家行政運轉中構成互補平衡。「勤勉」負責革新技術並推動系統擴張，「忍耐」則負責監控基層承載力以防止體系過載斷裂。</li>
+        </ul>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">軼聞與設定補充</h3>
+        <ul class="codex-list">
+          <li><strong>「塊莖家徽」：</strong>當其他古老世家以神獸、聖劍或星辰作為家族紋章時，「勤勉」主家的正式家徽圖案為一株扎根於齒輪與地脈紋路間的耐寒馬鈴薯花，以此紀念家族在百年饑荒中的起家之本。</li>
+          <li><strong>魔導度量衡：</strong>現今王國通用的魔力輸出單位、晶石純度分級及工程法陣安全係數，均源自「勤勉」家族家主主持編訂的《工坊測算手冊》。</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const modal = document.getElementById("diligence-codex-modal");
+    const closeBtn = document.getElementById("close-diligence-codex");
+    const spotlightContainer = document.getElementById("spotlight-dossier");
+
+    function openDiligenceCodex() {
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDiligenceCodex() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeDiligenceCodex);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeDiligenceCodex();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        closeDiligenceCodex();
+      }
+    });
+
+    // 1. 在下方【勤勉】卡片右下角掛載「閱覽世家卷宗」按鈕
+    function enhanceDiligenceCard() {
+      const card = document.getElementById("card-diligence");
+      if (!card || card.dataset.codexBound === "true") return;
+      card.dataset.codexBound = "true";
+
+      const footer = card.querySelector(".card-footer");
+      if (footer && footer.lastElementChild) {
+        const badge = document.createElement("button");
+        badge.type = "button";
+        badge.className = "card-codex-badge badge-radical-tone";
+        badge.textContent = "閱覽世家卷宗 ❖";
+        badge.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openDiligenceCodex();
+        });
+        footer.replaceChild(badge, footer.lastElementChild);
+      }
+    }
+
+    // 2. 當上方議事廳選中【勤勉】席次時，自動於右側面板顯示調閱按鈕
+    function enhanceSpotlightPanel() {
+      if (!spotlightContainer) return;
+      const titleEl = spotlightContainer.querySelector(".dossier-name");
+      const existingBtn = spotlightContainer.querySelector(".codex-trigger-btn");
+      if (titleEl && titleEl.textContent.includes("勤勉") && !existingBtn) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "codex-trigger-btn btn-radical-tone";
+        btn.innerHTML = "<span>❖</span><span>調閱《勤勉》魔導工學總檔</span>";
+        btn.addEventListener("click", openDiligenceCodex);
+        spotlightContainer.appendChild(btn);
+      }
+    }
+
+    enhanceDiligenceCard();
+    enhanceSpotlightPanel();
+
+    if (spotlightContainer) {
+      new MutationObserver(enhanceSpotlightPanel).observe(spotlightContainer, { childList: true });
+    }
+  })();
+</script>
+<!-- ==================== 【勤勉】擴充模組結束 ==================== -->
+<!-- ==================== 【慷慨】公共福利世家卷宗擴充模組 ==================== -->
+<style>
+  /* 若單獨嵌入亦能完整運作；與其他席位模組並存時自動共用宮廷基底樣式 */
+  .codex-trigger-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(46, 22, 25, 0.92) 0%, rgba(22, 12, 14, 0.96) 100%);
+    border: 1px solid var(--gold-main);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    width: fit-content;
+  }
+  .codex-trigger-btn:hover {
+    border-color: #fff0c2;
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(78, 30, 34, 0.95) 0%, rgba(34, 16, 19, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(194, 155, 82, 0.35), inset 0 0 10px rgba(229, 195, 120, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* 【慷慨】激進改革派：碧玉暖金按鈕色調 */
+  .codex-trigger-btn.btn-generosity-tone {
+    background: linear-gradient(180deg, rgba(24, 52, 46, 0.94) 0%, rgba(14, 26, 24, 0.98) 100%);
+    border-color: #6bc4b5;
+    color: #dff5f0;
+  }
+  .codex-trigger-btn.btn-generosity-tone:hover {
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(36, 72, 64, 0.96) 0%, rgba(20, 36, 32, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(107, 196, 181, 0.36), inset 0 0 10px rgba(229, 195, 120, 0.16);
+  }
+
+  .card-codex-badge {
+    padding: 5px 12px;
+    border: 1px solid var(--gold-main);
+    background: rgba(158, 42, 43, 0.22);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: all 0.28s ease;
+  }
+  .card-codex-badge:hover {
+    background: rgba(194, 155, 82, 0.25);
+    border-color: #fff0c2;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(229, 195, 120, 0.35);
+  }
+  .card-codex-badge.badge-generosity-tone {
+    background: rgba(44, 110, 99, 0.24);
+    border-color: #6bc4b5;
+    color: #dff5f0;
+  }
+  .card-codex-badge.badge-generosity-tone:hover {
+    background: rgba(194, 155, 82, 0.26);
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+  }
+
+  .codex-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(5, 3, 4, 0.86);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.38s ease, visibility 0.38s ease;
+  }
+  .codex-modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .codex-modal-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    max-height: 88vh;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(112, 28, 32, 0.24) 0%, transparent 58%),
+      linear-gradient(180deg, #161012 0%, #0d090a 100%);
+    border: 1px solid var(--gold-main);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(158, 42, 43, 0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(18px) scale(0.985);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .codex-modal-backdrop.open .codex-modal-sheet {
+    transform: translateY(0) scale(1);
+  }
+  .codex-modal-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* 【慷慨】公共魔法庫專屬碧玉琉璃✕暖琥珀金氛圍 */
+  #generosity-codex-modal .codex-modal-sheet {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(56, 132, 116, 0.25) 0%, rgba(180, 126, 54, 0.14) 42%, transparent 70%),
+      linear-gradient(180deg, #111816 0%, #090c0b 100%);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.96), 0 0 44px rgba(107, 196, 181, 0.18);
+  }
+  #generosity-codex-modal .codex-seat-label {
+    color: #7cd4c5;
+  }
+  #generosity-codex-modal .codex-quote {
+    background: linear-gradient(90deg, rgba(56, 132, 116, 0.18) 0%, rgba(194, 155, 82, 0.08) 55%, rgba(14, 19, 18, 0.72) 100%);
+    border-left-color: #e5c378;
+  }
+
+  .codex-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.26);
+    background: rgba(10, 7, 8, 0.78);
+    position: relative;
+    z-index: 3;
+  }
+  .codex-topbar-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-main);
+  }
+  .codex-close-btn {
+    background: transparent;
+    border: 1px solid rgba(194, 155, 82, 0.35);
+    color: var(--parchment);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .codex-close-btn:hover {
+    border-color: var(--gold-bright);
+    color: var(--gold-bright);
+    background: rgba(194, 155, 82, 0.1);
+  }
+
+  .codex-scroll-body {
+    overflow-y: auto;
+    padding: 40px 46px 52px;
+    position: relative;
+    z-index: 3;
+  }
+  .codex-scroll-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .codex-scroll-body::-webkit-scrollbar-track {
+    background: #0b0809;
+  }
+  .codex-scroll-body::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+  }
+
+  .codex-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 34px;
+    align-items: start;
+    padding-bottom: 34px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    margin-bottom: 34px;
+  }
+  .codex-title-group {
+    margin-bottom: 18px;
+  }
+  .codex-seat-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    color: #df6d6e;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .codex-main-heading {
+    font-size: 2.3rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--ivory);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .codex-main-heading span {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--gold-main);
+  }
+  .codex-lead-text {
+    font-size: 0.98rem;
+    line-height: 1.95;
+    color: var(--parchment);
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(18, 12, 14, 0.9);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    font-size: 0.88rem;
+  }
+  .codex-meta-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 9px 14px;
+    background: rgba(194, 155, 82, 0.12);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    border-bottom: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--gold-bright);
+  }
+  .codex-meta-table th,
+  .codex-meta-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.14);
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .codex-meta-table tr:last-child th,
+  .codex-meta-table tr:last-child td {
+    border-bottom: none;
+  }
+  .codex-meta-table th {
+    width: 34%;
+    color: var(--gold-main);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-align: left;
+    border-right: 1px solid rgba(194, 155, 82, 0.14);
+    background: rgba(255, 255, 255, 0.015);
+    white-space: nowrap;
+  }
+  .codex-meta-table td {
+    color: var(--ivory);
+    letter-spacing: 0.04em;
+  }
+
+  .codex-section {
+    margin-bottom: 34px;
+  }
+  .codex-section:last-child {
+    margin-bottom: 0;
+  }
+  .codex-h3 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .codex-h3::before {
+    content: "❖";
+    font-size: 0.85rem;
+    color: var(--gold-main);
+  }
+  .codex-h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ivory);
+    margin: 20px 0 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--gold-main);
+  }
+  .codex-p {
+    font-size: 0.95rem;
+    line-height: 1.92;
+    color: var(--parchment);
+    margin-bottom: 14px;
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-quote {
+    margin: 18px 0 22px;
+    padding: 20px 26px;
+    background: linear-gradient(90deg, rgba(158, 42, 43, 0.14) 0%, rgba(20, 14, 16, 0.6) 100%);
+    border-left: 3px solid var(--gold-bright);
+    border-top: 1px solid rgba(194, 155, 82, 0.16);
+    border-bottom: 1px solid rgba(194, 155, 82, 0.16);
+  }
+  .codex-quote p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--ivory);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .codex-quote cite {
+    display: block;
+    text-align: right;
+    font-style: normal;
+    font-size: 0.84rem;
+    color: var(--gold-main);
+    letter-spacing: 0.12em;
+  }
+
+  .codex-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+  .codex-list li {
+    padding: 14px 18px;
+    background: rgba(22, 15, 17, 0.78);
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    font-size: 0.93rem;
+    line-height: 1.82;
+    color: var(--parchment);
+    text-align: justify;
+  }
+  .codex-list li strong {
+    color: var(--gold-bright);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 820px) {
+    .codex-hero {
+      grid-template-columns: 1fr;
+    }
+    .codex-scroll-body {
+      padding: 26px 22px 36px;
+    }
+    .codex-topbar {
+      padding: 14px 20px;
+    }
+    .codex-main-heading {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
+<!-- 慷慨席位公共魔法庫與民生福利卷宗彈窗結構 -->
+<div class="codex-modal-backdrop" id="generosity-codex-modal" role="dialog" aria-modal="true" aria-labelledby="generosity-codex-title">
+  <div class="codex-modal-sheet">
+    <div class="codex-topbar">
+      <span class="codex-topbar-tag">ARCHIVUM LIBERALITATIS ・ SEDES V ・ 樞密院公共魔法庫與福利總冊</span>
+      <button type="button" class="codex-close-btn" id="close-generosity-codex">✕ 封存卷宗</button>
+    </div>
+
+    <div class="codex-scroll-body">
+      <div class="codex-hero">
+        <div>
+          <div class="codex-title-group">
+            <span class="codex-seat-label">PACTUM NOVATIONIS ・ 公共魔力流轉與民生改革世家</span>
+            <h2 class="codex-main-heading" id="generosity-codex-title">
+              「慷慨」<span>CHARITY / GENEROSITY</span>
+            </h2>
+          </div>
+          <p class="codex-lead-text">
+            「慷慨」（Charity / Generosity）是王國七美德樞密議會的常設席位之一，由建國後於民間防疫運動中崛起的旁支貴族世家出任。該家族在王國行政體系中長期執掌公共醫療、民生福利救濟、基礎魔法普及教育及國家公共魔力配額分配，是樞密議會內最具民意基礎與社會動員力的改革派席位。
+          </p>
+        </div>
+
+        <table class="codex-meta-table">
+          <caption>REGISTRUM BONI PUBLICI ・ 檔案紀錄</caption>
+          <tbody>
+            <tr>
+              <th>席位稱號</th>
+              <td>慷慨（Generosity）</td>
+            </tr>
+            <tr>
+              <th>所屬機構</th>
+              <td>七美德樞密議會</td>
+            </tr>
+            <tr>
+              <th>執掌領域</th>
+              <td>公共衛生醫療、平民魔法教育、民生供能配給、社會救濟</td>
+            </tr>
+            <tr>
+              <th>家族格言</th>
+              <td>「緊握之力必腐，流轉之能長存。」</td>
+            </tr>
+            <tr>
+              <th>政治立場</th>
+              <td>資源再分配派、魔法公共化改革派</td>
+            </tr>
+            <tr>
+              <th>主要職責</th>
+              <td>公共魔法庫管理、全民基礎魔力配額核算、民生福利法案起草</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">歷史淵源</h3>
+        <p class="codex-p">
+          「慷慨」一脈原為古老魔法世家中遭主流譜系排擠的混血旁支。王國早期爆發史稱「血疫之年」的特異魔法瘟疫，該疫病會隨宿主的精神恐懼急劇惡化；當時各大高門貴族紛紛封鎖領地、依仗防護秘術自保，底層平民則因缺乏醫療資源成片病亡。
+        </p>
+        <p class="codex-p">
+          危急之際，「慷慨」先祖違背貴族秘術不外傳的戒律，向民間公開了一套利用簡陋材料構建臨時魔力通道的基礎陣法。該技術允許健康者分擔病患的痛楚並渡讓微弱生命力，藉眾人短暫虛弱的代價協助重症者熬過發病高峰。此舉在當時遭傳統世家斥為「褻瀆血脈尊嚴」與「玷汙施法私密性」，卻成功挽救了數以萬計的平民家庭。疫病平息後，王室迫於龐大的民間聲望壓力，正式冊封該家族入主樞密議會，專司國家資源流轉與救濟事務。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">核心理念與施政手腕</h3>
+        <blockquote class="codex-quote">
+          <p>「王朝軀體的壞死，往往始於恩賜與榮光在少數人掌中凝固。」</p>
+          <cite>——摘自「慷慨」初代議員就任演說</cite>
+        </blockquote>
+
+        <h4 class="codex-h4">公共資本論</h4>
+        <p class="codex-p">
+          在「慷慨」派系的施政綱領中，魔法被明確定性為全體國民共有的「國家公共資本」。該家族認為，相較於施政過程中的損耗與浪費，任由龐大資源長期閒置於少數特權階級手中方為危及國本的重罪。基於此一理念，該席位長期推動建立國家公共魔法庫、鋪設城鄉能源法陣，並主張在官方監管下向全體公民發放基礎魔力使用配額。針對軍備擴張議題，該派系堅持「軍民反哺原則」，要求任何軍事魔法研發預算均須按比例撥出經費，同步投入民生基礎建設。
+        </p>
+
+        <h4 class="codex-h4">分配倡議</h4>
+        <p class="codex-p">
+          在樞密議會的決策場合中，「慷慨」代表是少數直接切入利益歸屬與資源分配議題的議員。其發言常具體列舉遭現行制度忽視的邊緣城鎮與底層群體，要求各部門給出明確的救濟時程。這種直指分配不公的犀利作風，常遭保守派批評為煽動情緒與脫離財政現實，同時也使其成為底層訴求進入中樞決策圈的主要管道。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">社會評價</h3>
+        <p class="codex-p">
+          與多數隱於幕後的樞密席位不同，「慷慨」世家在民間擁有高知名度，歷代家主的名諱常為市井百姓所熟知。舉凡城鎮淨水法陣、冬季穩定供暖網路及免費的公立初階魔導學堂，皆與該家族推動的法案息息相關。
+        </p>
+        <p class="codex-p">
+          由於深度介入資源分配，該家族亦長期承受著沉重的社會責難。每逢天災戰亂導致國庫緊縮、配給額度下調之際，最先遭到民眾抗議與怨恨的對象，往往正是平日主導福利發放的「慷慨」席位。民間輿論對其愛戴與苛責並存的現象，構成了該家族延續百年的政治宿命。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">議會派系關係</h3>
+        <ul class="codex-list">
+          <li><strong>對「節制」席位：</strong>議會內公開交鋒的宿敵。「節制」主張透過嚴格克制與縮減慾望來防範社會墮落，「慷慨」則認為過度壓抑民生需求終將催生底層的激烈反撲。</li>
+          <li><strong>對「勤勉」席位：</strong>推動民生改革的核心盟友。在大型公共建設中，通常由「慷慨」提出福利構想與分配方向，再交由「勤勉」負責工程設計與系統落實。</li>
+          <li><strong>對「忍耐」席位：</strong>在施政節奏上互相戒備。「慷慨」傾向承擔財政風險以徹底解決民生困局，「忍耐」則堅持優先維持現有儲備底線，雙方常就救濟規模展開拉鋸。</li>
+          <li><strong>對「寬容」席位：</strong>在體恤弱勢群體上具備相似的同理心，惟「慷慨」派系時常對「寬容」凡事講求折衷、遲遲不願推動實質利益重分配的謹慎態度感到不耐。</li>
+          <li><strong>對「謙卑」及「貞潔」席位：</strong>維持場面上的貴族禮數，但在實質法案審查中摩擦不斷，難以認同兩派援引神聖教條或血脈純度來限制公共資源下放的作法。</li>
+        </ul>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">軼聞與設定補充</h3>
+        <ul class="codex-list">
+          <li><strong>「共感疤痕」：</strong>延續自「血疫之年」的家族成年禮傳統。「慷慨」世家的直系子弟在年滿十六歲時，均須前往家族營運的公立施醫所擔任半年義工，並親自使用初代家主留下的「分擔陣法」替重症貧民承受一次病痛，以此銘記家族權力的來源。</li>
+          <li><strong>赤字議員：</strong>由於歷代「慷慨」家主常在國庫撥款遭議會凍結時，私自挪用家族領地收益填補公立學堂與施醫所的資金缺口，該世家雖位列七大樞密貴族，其私庫帳面卻常年處於入不敷出的窘境。</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const modal = document.getElementById("generosity-codex-modal");
+    const closeBtn = document.getElementById("close-generosity-codex");
+    const spotlightContainer = document.getElementById("spotlight-dossier");
+
+    function openGenerosityCodex() {
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeGenerosityCodex() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeGenerosityCodex);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeGenerosityCodex();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        closeGenerosityCodex();
+      }
+    });
+
+    // 1. 在下方【慷慨】卡片右下角掛載「閱覽世家卷宗」按鈕
+    function enhanceGenerosityCard() {
+      const card = document.getElementById("card-generosity");
+      if (!card || card.dataset.codexBound === "true") return;
+      card.dataset.codexBound = "true";
+
+      const footer = card.querySelector(".card-footer");
+      if (footer && footer.lastElementChild) {
+        const badge = document.createElement("button");
+        badge.type = "button";
+        badge.className = "card-codex-badge badge-generosity-tone";
+        badge.textContent = "閱覽世家卷宗 ❖";
+        badge.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openGenerosityCodex();
+        });
+        footer.replaceChild(badge, footer.lastElementChild);
+      }
+    }
+
+    // 2. 當上方議事廳選中【慷慨】席次時，自動於右側面板顯示調閱按鈕
+    function enhanceSpotlightPanel() {
+      if (!spotlightContainer) return;
+      const titleEl = spotlightContainer.querySelector(".dossier-name");
+      const existingBtn = spotlightContainer.querySelector(".codex-trigger-btn");
+      if (titleEl && titleEl.textContent.includes("慷慨") && !existingBtn) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "codex-trigger-btn btn-generosity-tone";
+        btn.innerHTML = "<span>❖</span><span>調閱《慷慨》公共福利總冊</span>";
+        btn.addEventListener("click", openGenerosityCodex);
+        spotlightContainer.appendChild(btn);
+      }
+    }
+
+    enhanceGenerosityCard();
+    enhanceSpotlightPanel();
+
+    if (spotlightContainer) {
+      new MutationObserver(enhanceSpotlightPanel).observe(spotlightContainer, { childList: true });
+    }
+  })();
+</script>
+<!-- ==================== 【慷慨】擴充模組結束 ==================== -->
+<!-- ==================== 【節制】審計清算世家卷宗擴充模組 ==================== -->
+<style>
+  /* 若單獨嵌入亦能完整運作；與其他席位模組並存時自動共用宮廷基底樣式 */
+  .codex-trigger-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(46, 22, 25, 0.92) 0%, rgba(22, 12, 14, 0.96) 100%);
+    border: 1px solid var(--gold-main);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    width: fit-content;
+  }
+  .codex-trigger-btn:hover {
+    border-color: #fff0c2;
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(78, 30, 34, 0.95) 0%, rgba(34, 16, 19, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(194, 155, 82, 0.35), inset 0 0 10px rgba(229, 195, 120, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* 【節制】四問印鑑✕焦土黑曜按鈕色調 */
+  .codex-trigger-btn.btn-temperance-tone {
+    background: linear-gradient(180deg, rgba(54, 18, 20, 0.95) 0%, rgba(18, 12, 13, 0.98) 100%);
+    border-color: #b84a4b;
+    color: #f0d5d5;
+  }
+  .codex-trigger-btn.btn-temperance-tone:hover {
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+    background: linear-gradient(180deg, rgba(84, 24, 27, 0.96) 0%, rgba(28, 14, 16, 0.98) 100%);
+    box-shadow: 0 0 22px rgba(184, 74, 75, 0.4), inset 0 0 10px rgba(229, 195, 120, 0.15);
+  }
+
+  .card-codex-badge {
+    padding: 5px 12px;
+    border: 1px solid var(--gold-main);
+    background: rgba(158, 42, 43, 0.22);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: all 0.28s ease;
+  }
+  .card-codex-badge:hover {
+    background: rgba(194, 155, 82, 0.25);
+    border-color: #fff0c2;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(229, 195, 120, 0.35);
+  }
+  .card-codex-badge.badge-temperance-tone {
+    background: rgba(122, 28, 30, 0.28);
+    border-color: #b84a4b;
+    color: #f0d5d5;
+  }
+  .card-codex-badge.badge-temperance-tone:hover {
+    background: rgba(194, 155, 82, 0.26);
+    border-color: var(--gold-bright);
+    color: #fff5dc;
+  }
+
+  .codex-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(5, 3, 4, 0.86);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.38s ease, visibility 0.38s ease;
+  }
+  .codex-modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .codex-modal-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    max-height: 88vh;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(112, 28, 32, 0.24) 0%, transparent 58%),
+      linear-gradient(180deg, #161012 0%, #0d090a 100%);
+    border: 1px solid var(--gold-main);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(158, 42, 43, 0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(18px) scale(0.985);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .codex-modal-backdrop.open .codex-modal-sheet {
+    transform: translateY(0) scale(1);
+  }
+  .codex-modal-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* 【節制】限權公約與焦土石戒專屬暗紅火漆✕黑曜灰氛圍 */
+  #temperance-codex-modal .codex-modal-sheet {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(138, 30, 32, 0.28) 0%, rgba(34, 30, 30, 0.24) 46%, transparent 72%),
+      linear-gradient(180deg, #141011 0%, #090808 100%);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.96), 0 0 46px rgba(158, 42, 43, 0.26);
+  }
+  #temperance-codex-modal .codex-seat-label {
+    color: #df6d6e;
+  }
+  #temperance-codex-modal .codex-quote {
+    background: linear-gradient(90deg, rgba(138, 30, 32, 0.22) 0%, rgba(16, 13, 14, 0.76) 100%);
+    border-left-color: #c94a4b;
+  }
+
+  .codex-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.26);
+    background: rgba(10, 7, 8, 0.78);
+    position: relative;
+    z-index: 3;
+  }
+  .codex-topbar-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-main);
+  }
+  .codex-close-btn {
+    background: transparent;
+    border: 1px solid rgba(194, 155, 82, 0.35);
+    color: var(--parchment);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .codex-close-btn:hover {
+    border-color: var(--gold-bright);
+    color: var(--gold-bright);
+    background: rgba(194, 155, 82, 0.1);
+  }
+
+  .codex-scroll-body {
+    overflow-y: auto;
+    padding: 40px 46px 52px;
+    position: relative;
+    z-index: 3;
+  }
+  .codex-scroll-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .codex-scroll-body::-webkit-scrollbar-track {
+    background: #0b0809;
+  }
+  .codex-scroll-body::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+  }
+
+  .codex-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 34px;
+    align-items: start;
+    padding-bottom: 34px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    margin-bottom: 34px;
+  }
+  .codex-title-group {
+    margin-bottom: 18px;
+  }
+  .codex-seat-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    color: #df6d6e;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .codex-main-heading {
+    font-size: 2.3rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--ivory);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .codex-main-heading span {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--gold-main);
+  }
+  .codex-lead-text {
+    font-size: 0.98rem;
+    line-height: 1.95;
+    color: var(--parchment);
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(18, 12, 14, 0.9);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    font-size: 0.88rem;
+  }
+  .codex-meta-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 9px 14px;
+    background: rgba(194, 155, 82, 0.12);
+    border: 1px solid rgba(194, 155, 82, 0.32);
+    border-bottom: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--gold-bright);
+  }
+  .codex-meta-table th,
+  .codex-meta-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.14);
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .codex-meta-table tr:last-child th,
+  .codex-meta-table tr:last-child td {
+    border-bottom: none;
+  }
+  .codex-meta-table th {
+    width: 34%;
+    color: var(--gold-main);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-align: left;
+    border-right: 1px solid rgba(194, 155, 82, 0.14);
+    background: rgba(255, 255, 255, 0.015);
+    white-space: nowrap;
+  }
+  .codex-meta-table td {
+    color: var(--ivory);
+    letter-spacing: 0.04em;
+  }
+
+  .codex-section {
+    margin-bottom: 34px;
+  }
+  .codex-section:last-child {
+    margin-bottom: 0;
+  }
+  .codex-h3 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(194, 155, 82, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .codex-h3::before {
+    content: "❖";
+    font-size: 0.85rem;
+    color: var(--gold-main);
+  }
+  .codex-h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ivory);
+    margin: 20px 0 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--gold-main);
+  }
+  .codex-p {
+    font-size: 0.95rem;
+    line-height: 1.92;
+    color: var(--parchment);
+    margin-bottom: 14px;
+    text-align: justify;
+    letter-spacing: 0.04em;
+  }
+
+  .codex-quote {
+    margin: 18px 0 22px;
+    padding: 20px 26px;
+    background: linear-gradient(90deg, rgba(158, 42, 43, 0.14) 0%, rgba(20, 14, 16, 0.6) 100%);
+    border-left: 3px solid var(--gold-bright);
+    border-top: 1px solid rgba(194, 155, 82, 0.16);
+    border-bottom: 1px solid rgba(194, 155, 82, 0.16);
+  }
+  .codex-quote p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--ivory);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .codex-quote cite {
+    display: block;
+    text-align: right;
+    font-style: normal;
+    font-size: 0.84rem;
+    color: var(--gold-main);
+    letter-spacing: 0.12em;
+  }
+
+  .codex-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+  .codex-list li {
+    padding: 14px 18px;
+    background: rgba(22, 15, 17, 0.78);
+    border: 1px solid rgba(194, 155, 82, 0.16);
+    font-size: 0.93rem;
+    line-height: 1.82;
+    color: var(--parchment);
+    text-align: justify;
+  }
+  .codex-list li strong {
+    color: var(--gold-bright);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 820px) {
+    .codex-hero {
+      grid-template-columns: 1fr;
+    }
+    .codex-scroll-body {
+      padding: 26px 22px 36px;
+    }
+    .codex-topbar {
+      padding: 14px 20px;
+    }
+    .codex-main-heading {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
+<!-- 節制席位限權公約與審計清算卷宗彈窗結構 -->
+<div class="codex-modal-backdrop" id="temperance-codex-modal" role="dialog" aria-modal="true" aria-labelledby="temperance-codex-title">
+  <div class="codex-modal-sheet">
+    <div class="codex-topbar">
+      <span class="codex-topbar-tag">ARCHIVUM CENSURAE ・ SEDES VI ・ 樞密院限權公約與審計裁決錄</span>
+      <button type="button" class="codex-close-btn" id="close-temperance-codex">✕ 封存卷宗</button>
+    </div>
+
+    <div class="codex-scroll-body">
+      <div class="codex-hero">
+        <div>
+          <div class="codex-title-group">
+            <span class="codex-seat-label">ORDO CONSERVATIVUS ・ 資源審計與魔力限權監管世家</span>
+            <h2 class="codex-main-heading" id="temperance-codex-title">
+              「節制」<span>TEMPERANCE</span>
+            </h2>
+          </div>
+          <p class="codex-lead-text">
+            「節制」（Temperance）是王國七美德樞密議會的常設席位之一，由建國初期主持戰後清算與法度重建的審計官世家出任。該家族在王國體制中長期執掌魔力許可審批、資源配額上限裁定、施法者風紀監察及違約懲戒，是樞密議會內權限最具強制力、作風最為嚴苛的監管派席位。
+          </p>
+        </div>
+
+        <table class="codex-meta-table">
+          <caption>REGISTRUM CENSURAE ・ 檔案紀錄</caption>
+          <tbody>
+            <tr>
+              <th>席位稱號</th>
+              <td>節制（Temperance）</td>
+            </tr>
+            <tr>
+              <th>所屬機構</th>
+              <td>七美德樞密議會</td>
+            </tr>
+            <tr>
+              <th>執掌領域</th>
+              <td>魔力分級管控、財政與資源審計、違約清算、施法許可核發</td>
+            </tr>
+            <tr>
+              <th>建國敕命</th>
+              <td>「凡超限之慾，皆由汝等裁定取捨。」</td>
+            </tr>
+            <tr>
+              <th>政治立場</th>
+              <td>嚴格管控派、風險防制派</td>
+            </tr>
+            <tr>
+              <th>主要職責</th>
+              <td>非常規魔法啟用審查、資源調動上限核定、越界濫權處置</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">歷史淵源</h3>
+        <p class="codex-p">
+          王國法制尚未健全的建國前夕，某支掌握強大秘術的貴族氏族因權力傾軋與內部恐慌，擅自將城防法陣轉為無差別清洗的烈焰，致使整座繁華都城在毫無外敵入侵的情況下化為焦土。
+        </p>
+        <p class="codex-p">
+          災變過後，「節制」一脈的先祖以王室特命清算官的身份接管廢墟。面對牽涉其中的倖存權貴與龐大爛帳，該家族放棄了足以引發二次內戰的全面追責，轉而強迫各大家族在焦土上簽署了王國歷史上首部《限權公約》，確立了凡啟用高階魔法與調動公共資源均須事前申報代價、明確承擔主體及違約處置方案的鐵律。王國完成重建並削弱各世家私權之際，王室正式將這套審查與熔斷機制常設化，賦予「節制」家族裁定全國資源與魔力上限的專屬權柄。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">核心理念</h3>
+        <blockquote class="codex-quote">
+          <p>「凡啟用秘術、調撥國帑、遂行所願者，須先呈報四事：代價幾何？何人償付？何時結清？倘若破產違約，能否受得起清算之刑？」</p>
+          <cite>——摘自《節制限權公約·總則第一條》</cite>
+        </blockquote>
+
+        <h4 class="codex-h4">負債工具論與制度性防惡</h4>
+        <p class="codex-p">
+          「節制」派系對人性自律抱持悲觀態度，認為世俗秩序之所以免於崩潰，全賴嚴密的外部法規加以束縛。在該家族的施政視角中，魔法屬於伴隨高昂隱性成本的高風險負債工具——每一次非常規的魔力調用，實質上皆是以國家穩定、生態平衡與施法者心智健全作為抵押品向未來舉債。為防範系統性崩盤，該席位堅持推行嚴格的許可證制度、魔力分級管控、全程使用留痕及事前道德審查。
+        </p>
+
+        <h4 class="codex-h4">上限裁決</h4>
+        <p class="codex-p">
+          在樞密議會運作中，「節制」席位握有針對重大資源調動與高危魔法實驗的「配額否決權」。面對各部門呈交的擴張計畫，該席位代表鮮少考量政策帶來的遠景收益，專注於核算違約風險與超限可能；一旦判定某項提案的潛在失控成本超出王國償付能力，便會直接下達縮減規模或強制叫停的裁決書。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">社會評價</h3>
+        <p class="codex-p">
+          在七美德席位中，「節制」世家在朝野與民間招致的罵名最為集中。商會、改革派學者與底層民眾普遍將繁瑣的審批程序視為阻礙技術進步、剝奪階層流動希望與扼殺發展潛力的枷鎖，歷代「節制」議員亦常在民間諷刺戲曲中被塑造成冷酷刻板的守財奴與禁慾官僚。
+        </p>
+        <p class="codex-p">
+          與高漲的怨聲相對，該家族的施政成效多體現在未曾發生的災難之中。舉凡被提前吊銷執照的高危魔導工坊、在萌芽階段即遭凍結的貴族私兵擴編案，以及無數因未獲批文而胎死腹中的激進法陣試驗，皆因在事前遭到掐滅而未留存於公眾視野。這種功績隱於無形、怨謗集於一身的處境，構成了該席位常態化的執政日常。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">議會派系關係</h3>
+        <ul class="codex-list">
+          <li><strong>對「慷慨」席位：</strong>議會內立場最為針鋒相對的宿敵。「慷慨」深信資源加速流轉方能救濟蒼生，「節制」則認定缺乏上限的供給與福利終將誘發貪婪並拖垮國本，兩派在年度預算與配額審查中交鋒不斷。</li>
+          <li><strong>對「勤勉」席位：</strong>維持借重與嚴防並存的微妙關係。「節制」席位借重「勤勉」開發的定量測算技術來精確執行監管，同時亦認為魔導工學越是成熟高效，越需要配置強力的制度剎車。</li>
+          <li><strong>對「忍耐」席位：</strong>在風險評估與防範崩盤上具備高度共識。兩者的分歧在於處置手段：「忍耐」偶爾願意為維持當下局面而默許彈性變通，「節制」則拒絕為遷就現實困境而在法規底線上作出讓步。</li>
+          <li><strong>對「謙卑」及「貞潔」席位：</strong>捍衛王國秩序底線的穩固同盟。三方在限制魔法泛用、約束貴族私慾等核心議題上長期保持一致的投票步調。</li>
+          <li><strong>對「寬容」席位：</strong>肯定其平息派系紛爭的交涉手腕，但在涉及違法越界與高危異端思想時，「節制」派系主張直接取締清算，反對為所有潛在衝突保留模糊的緩衝空間。</li>
+        </ul>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">軼聞與設定補充</h3>
+        <ul class="codex-list">
+          <li><strong>「四問印鑑」：</strong>凡須經由「節制」席位核准的國家級魔導工程或特別預算案，公文卷宗首頁均會蓋上一枚刻有天平與枷鎖圖樣的暗紅方印，印文下方即為著名的「四問」，申請部門須逐項填妥抵押方案與連帶責任人方可進入實質審查。</li>
+          <li><strong>焦土石戒：</strong>歷代「節制」家主繼承席位時佩戴的信物是一枚由建國前夕那座毀滅都城的琉璃化焦土打磨而成的黑灰色石戒，用以警示執掌度量衡者切莫重蹈慾望失控的覆轍。</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const modal = document.getElementById("temperance-codex-modal");
+    const closeBtn = document.getElementById("close-temperance-codex");
+    const spotlightContainer = document.getElementById("spotlight-dossier");
+
+    function openTemperanceCodex() {
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeTemperanceCodex() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeTemperanceCodex);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeTemperanceCodex();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        closeTemperanceCodex();
+      }
+    });
+
+    // 1. 在下方【節制】卡片右下角掛載「閱覽世家卷宗」按鈕
+    function enhanceTemperanceCard() {
+      const card = document.getElementById("card-temperance");
+      if (!card || card.dataset.codexBound === "true") return;
+      card.dataset.codexBound = "true";
+
+      const footer = card.querySelector(".card-footer");
+      if (footer && footer.lastElementChild) {
+        const badge = document.createElement("button");
+        badge.type = "button";
+        badge.className = "card-codex-badge badge-temperance-tone";
+        badge.textContent = "閱覽世家卷宗 ❖";
+        badge.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openTemperanceCodex();
+        });
+        footer.replaceChild(badge, footer.lastElementChild);
+      }
+    }
+
+    // 2. 當上方議事廳選中【節制】席次時，自動於右側面板顯示調閱按鈕
+    function enhanceSpotlightPanel() {
+      if (!spotlightContainer) return;
+      const titleEl = spotlightContainer.querySelector(".dossier-name");
+      const existingBtn = spotlightContainer.querySelector(".codex-trigger-btn");
+      if (titleEl && titleEl.textContent.includes("節制") && !existingBtn) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "codex-trigger-btn btn-temperance-tone";
+        btn.innerHTML = "<span>❖</span><span>調閱《節制》限權公約與裁決錄</span>";
+        btn.addEventListener("click", openTemperanceCodex);
+        spotlightContainer.appendChild(btn);
+      }
+    }
+
+    enhanceTemperanceCard();
+    enhanceSpotlightPanel();
+
+    if (spotlightContainer) {
+      new MutationObserver(enhanceSpotlightPanel).observe(spotlightContainer, { childList: true });
+    }
+  })();
+</script>
+<!-- ==================== 【節制】擴充模組結束 ==================== -->
+<!-- ==================== 【貪婪】血冕篡奪席與影子帝國擴充模組 ==================== -->
+<style>
+  /* 相容基底樣式 */
+  .codex-trigger-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(46, 22, 25, 0.92) 0%, rgba(22, 12, 14, 0.96) 100%);
+    border: 1px solid var(--gold-main);
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    width: fit-content;
+  }
+
+  /* 【貪婪】血冕黑鐵✕劫掠赤金專屬樣式 */
+  .seal-usurper {
+    color: #ff6b57;
+    background: linear-gradient(90deg, rgba(138, 18, 24, 0.32), rgba(194, 155, 82, 0.16));
+    border-color: #d94136 !important;
+  }
+
+  .codex-trigger-btn.btn-greed-tone {
+    background: linear-gradient(180deg, rgba(64, 12, 16, 0.95) 0%, rgba(16, 11, 10, 0.98) 100%);
+    border-color: #d94136;
+    color: #ffd89b;
+  }
+  .codex-trigger-btn.btn-greed-tone:hover {
+    border-color: #ff6b57;
+    color: #fff6e0;
+    background: linear-gradient(180deg, rgba(96, 16, 22, 0.98) 0%, rgba(28, 15, 12, 0.98) 100%);
+    box-shadow: 0 0 26px rgba(217, 65, 54, 0.48), inset 0 0 12px rgba(229, 195, 120, 0.22);
+    transform: translateY(-1px);
+  }
+
+  .card-codex-badge.badge-greed-tone {
+    padding: 5px 12px;
+    background: linear-gradient(180deg, rgba(120, 16, 22, 0.42), rgba(24, 14, 14, 0.9));
+    border: 1px solid #d94136;
+    color: #ffd89b;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: all 0.28s ease;
+  }
+  .card-codex-badge.badge-greed-tone:hover {
+    background: rgba(185, 36, 42, 0.48);
+    border-color: #ffd89b;
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(217, 65, 54, 0.55);
+  }
+
+  /* 篡奪席位卡片異變視覺 */
+  .virtue-card[data-faction="usurper"] {
+    background:
+      radial-gradient(circle at 90% 8%, rgba(168, 24, 30, 0.22) 0%, transparent 48%),
+      linear-gradient(165deg, #1b0e10 0%, #0a0809 62%, #18110c 100%);
+    border-color: rgba(217, 65, 54, 0.5);
+  }
+  .virtue-card[data-faction="usurper"]::before {
+    border-color: rgba(229, 195, 120, 0.18);
+  }
+  .virtue-card[data-faction="usurper"]:hover {
+    border-color: #ff6b57;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.92), 0 0 32px rgba(204, 41, 43, 0.42);
+  }
+  .erased-seat {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.74rem;
+    color: rgba(223, 109, 110, 0.65);
+    text-decoration: line-through;
+    letter-spacing: 0.12em;
+    margin-left: 8px;
+  }
+
+  /* 篩選列：血冕政變編制切換鈕 */
+  .faction-btn.btn-blood-crown-mode {
+    border-color: rgba(217, 65, 54, 0.55);
+    color: #f0b89d;
+    background: linear-gradient(180deg, #240e11 0%, #0d0809 100%);
+  }
+  .faction-btn.btn-blood-crown-mode:hover,
+  .faction-btn.btn-blood-crown-mode.era-active {
+    border-color: #ff6b57;
+    color: #ffd89b;
+    background: linear-gradient(180deg, #421217 0%, #170a0c 100%);
+    box-shadow: 0 0 24px rgba(217, 65, 54, 0.42), inset 0 0 14px rgba(229, 195, 120, 0.16);
+  }
+  .virtue-card.era-archived {
+    display: none !important;
+  }
+
+  /* 議事廳：王權默許黑市暗線與搏動之匣脈動 */
+  .relation-shadow-pact {
+    fill: none;
+    stroke: #d94136;
+    stroke-width: 1.5;
+    stroke-dasharray: 3 5;
+    opacity: 0.72;
+    animation: dashMove 12s linear infinite;
+  }
+  @keyframes heartPulseRing {
+    0%, 100% { r: 29px; stroke-opacity: 0.75; }
+    35% { r: 34px; stroke-opacity: 0.2; }
+    55% { r: 31px; stroke-opacity: 0.55; }
+  }
+  .greed-pulse-halo {
+    fill: none;
+    stroke: #d94136;
+    stroke-width: 1.2;
+    animation: heartPulseRing 2.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* 【貪婪】彈窗專屬：搏動之匣與黑鐵血冕氛圍 */
+  #greed-codex-modal .codex-modal-sheet {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(156, 20, 26, 0.34) 0%, rgba(194, 155, 82, 0.1) 42%, transparent 70%),
+      linear-gradient(180deg, #140b0d 0%, #080607 100%);
+    border-color: #c94a38;
+    box-shadow: 0 32px 96px rgba(0, 0, 0, 0.98), 0 0 52px rgba(178, 32, 38, 0.32);
+  }
+  #greed-codex-modal .codex-seat-label {
+    color: #ff6b57;
+  }
+  #greed-codex-modal .codex-quote {
+    background: linear-gradient(90deg, rgba(142, 20, 26, 0.28) 0%, rgba(194, 155, 82, 0.08) 65%, rgba(12, 9, 10, 0.85) 100%);
+    border-left-color: #ff6b57;
+  }
+  .heartbeat-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #eb3b3b;
+    box-shadow: 0 0 10px #eb3b3b;
+    margin-right: 10px;
+    animation: heartBeatDot 1.8s infinite ease-in-out;
+  }
+  @keyframes heartBeatDot {
+    0%, 100% { transform: scale(0.9); opacity: 0.65; }
+    20% { transform: scale(1.35); opacity: 1; }
+    40% { transform: scale(0.95); opacity: 0.75; }
+    60% { transform: scale(1.22); opacity: 0.95; }
+  }
+</style>
+
+<!-- 貪婪席位：血冕政變與地下帝國卷宗彈窗 -->
+<div class="codex-modal-backdrop" id="greed-codex-modal" role="dialog" aria-modal="true" aria-labelledby="greed-codex-title">
+  <div class="codex-modal-sheet">
+    <div class="codex-topbar">
+      <span class="codex-topbar-tag"><i class="heartbeat-dot"></i>ARCHIVUM AVARITIAE ・ SEDES VII (USURPATA) ・ 血冕第七席與黑市暗檔</span>
+      <button type="button" class="codex-close-btn" id="close-greed-codex">✕ 封存卷宗</button>
+    </div>
+
+    <div class="codex-scroll-body">
+      <div class="codex-hero">
+        <div>
+          <div class="codex-title-group">
+            <span class="codex-seat-label">IMPERIUM UMBRAE ・ 血冕篡奪席位與王權默許之影子帝國</span>
+            <h2 class="codex-main-heading" id="greed-codex-title">
+              「貪婪」<span>GREED</span>
+            </h2>
+          </div>
+          <p class="codex-lead-text">
+            「貪婪」（Greed）是王國樞密議會現任第七席位，亦為議會建制以來唯一透過流血政變強行篡奪並更名的非常規席位。該席位表面掛名協理王國商貿與邊境稅務，實則全面壟斷地下經濟、走私航線、情報黑市及傭兵仲介等官方拒絕承認的灰色產業，在王國體制內運作著一座受王權默許的影子帝國。
+          </p>
+        </div>
+
+        <table class="codex-meta-table">
+          <caption>REGISTRUM SANGUINIS ET AURI ・ 檔案紀錄</caption>
+          <tbody>
+            <tr>
+              <th>席位稱號</th>
+              <td>貪婪（Greed）</td>
+            </tr>
+            <tr>
+              <th>前身席位</th>
+              <td><span style="text-decoration:line-through;opacity:0.7;">犧牲（Sacrifice）</span>（已除名滅族）</td>
+            </tr>
+            <tr>
+              <th>開創家主</th>
+              <td>戈爾（原邊境傭兵團首領）</td>
+            </tr>
+            <tr>
+              <th>執掌領域</th>
+              <td>邊境貿易、地下金融、情報黑市、特許走私與灰產管理</td>
+            </tr>
+            <tr>
+              <th>家族格言</th>
+              <td>「欲求皆應標價，萬物終可歸我。」</td>
+            </tr>
+            <tr>
+              <th>政治立場</th>
+              <td>功利擴張派、赤裸利益交換派</td>
+            </tr>
+            <tr>
+              <th>主要職責</th>
+              <td>灰色產業秩序維持、黑市稅賦徵收、非官方情報與武力調度</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">歷史淵源：十四日血冕政變</h3>
+        <p class="codex-p">
+          樞密議會第七席在建國後數百年間原屬古老的「犧牲」世家。該家族世代奉行「捨小我全大義」的家訓，掌管戰略儲備與國難撫恤，雖在朝野享有清譽，家族實力卻因長年無償填補國庫虧空而日漸空虛。
+        </p>
+        <p class="codex-p">
+          變局爆發於王國近代一場慘勝的邊境戰爭之後。連年征戰致使國力枯竭，「犧牲」家主在戰後力主全面緊縮財政、削減撫恤以休養生息。此項決策徹底激怒了渴求封賞的前線野戰軍官、覬覦戰利品專賣權的邊境巨賈，以及因戰時徵調瀕臨破產的中小商會；民間亦隨之蔓延「唯獨底層被迫奉獻」的強烈怨懟。
+        </p>
+        <p class="codex-p">
+          傭兵集團首領戈爾趁勢串聯走私集團、失意軍官與破產商會，發動了一場刻意避開王室、專門針對樞密席位繼承權的武裝清洗。叛亂聯盟向全境地下世界發布公開懸賞，宣稱凡能取下「犧牲」家主心臟並置於議會第七席座椅者，即可依上古鬥技傳統發起篡奪爵位的「血冕挑戰」。
+        </p>
+        <p class="codex-p">
+          懸賞令下達後僅歷時十四日，缺乏私兵護衛的「犧牲」一族便遭各方亡命之徒與倒戈軍隊連根屠滅。政變終局之日，戈爾攜帶一顆以禁忌秘術維持微弱搏動的前任家主心臟闖入樞密大廳，將其棄置於第七席案頭，在國王與其餘六席議員面前帶血入座，當場宣告廢除「犧牲」舊號，將第七席正式更名為「貪婪」。迫於戰後軍心動盪與地下勢力全面失控的現實，王室最終下詔追認其席位合法性。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">核心理念與施政手腕</h3>
+        <blockquote class="codex-quote">
+          <p>「少拿大義糊弄人。把籌碼擺上桌，開出價碼——現在，規則由贏家書寫。」</p>
+          <cite>——摘自初代「貪婪」議員戈爾闖入樞密大廳時的會議紀錄</cite>
+        </blockquote>
+
+        <h4 class="codex-h4">慾望標價論與灰產合法化</h4>
+        <p class="codex-p">
+          「貪婪」派系徹底摒棄傳統美德席位的道德敘事，主張人類對財富、權勢與生存的渴求，實為驅動國家機器運轉的真實燃料。在該席位的治理邏輯中，凡試圖以教條抹殺私慾之政令，終將催生失控的地下暴亂；唯有將一切慾望明碼標價並納入交易體系，方能實現真正的秩序控管。在其主導下，原本遭官方嚴令查禁的邊境走私、私掠傭兵、違禁魔導器買賣與高利貸金融，悉數轉化為向「貪婪」席位繳納規費的特種特許行業。
+        </p>
+
+        <h4 class="codex-h4">籌碼交換與買斷式政治</h4>
+        <p class="codex-p">
+          在樞密議會的決策場合中，「貪婪」代表從不參與神學、禮法或道德層面的爭辯，所有投票立場皆取決於實質利益交換。凡其他席位欲推動缺乏經費或遭遇阻力的法案，只要願意讓渡特定邊境關稅、礦脈開採權或默許某項黑市豁免條款，「貪婪」席位皆可出面提供資金挹注、情報支援乃至私下解決政治對手。這種將神聖議政廳視同拍賣場的行事作風，使其成為議會內最受鄙夷卻又最常被私下接洽的關鍵少數。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">社會評價與歷史定位</h3>
+        <p class="codex-p">
+          官方史書與正統貴族普遍將「貪婪」席位視為王國體制上一道恥辱的傷疤，斥其為沐猴而冠的暴發戶與國賊；在邊境重鎮、港口暗巷、傭兵工會與新興商人間，戈爾及其繼承者則被奉為打破貴族偽善壟斷、讓野心家得以憑本事翻身的傳奇象徵。
+        </p>
+        <p class="codex-p">
+          儘管手段血腥且唯利是圖，自「貪婪」入主第七席以來，王國邊境的私掠動亂與黑市火併發生率顯著下降。所有見不得光的髒活、官方不便出面的跨境暗殺與戰時緊急黑市物資籌措，均由這座「合法影子帝國」在暗中消化完畢。
+        </p>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">議會派系關係</h3>
+        <ul class="codex-list">
+          <li><strong>對「貞潔」及「謙卑」席位：</strong>意識形態與出身背景上的死敵。保守兩派至今拒絕在非正式場合直呼其席位名稱，僅以「第七席」代稱；「貪婪」則常以掌握兩大世家旁支子弟的黑市交易把柄作為反制籌碼。</li>
+          <li><strong>對「節制」席位：</strong>監管與反監管的長期博弈對手。「節制」試圖以審計法規掐斷地下資金流，「貪婪」則專門鑽營法條漏洞，雙方在邊境關稅與違禁品查緝上摩擦不斷。</li>
+          <li><strong>對「忍耐」席位：</strong>心照不宣的務實交易對象。每逢災荒戰亂導致官方糧道斷絕，「忍耐」席位偶爾會默許動用國庫與「貪婪」控制的走私商隊進行高價物資採購，以換取災區局勢的即時穩定。</li>
+          <li><strong>對「寬容」席位：</strong>情報網與灰色地帶的常態交涉方。雙方在處置外邦流亡者與異端組織時常有業務重疊，惟「寬容」出於政治緩衝考量，「貪婪」則純粹視之為奇貨可居的商品。</li>
+          <li><strong>對「慷慨」席位：</strong>對立卻偶有交集的微妙關係。「貪婪」嗤笑「慷慨」無償施捨的賠本行徑，卻也樂於承接公立救濟機構外包的龐大物資採購訂單，從中賺取穩定差價。</li>
+        </ul>
+      </section>
+
+      <section class="codex-section">
+        <h3 class="codex-h3">軼聞與設定補充</h3>
+        <ul class="codex-list">
+          <li><strong>「搏動之匣」：</strong>據傳當年戈爾置於議會桌上的前任「犧牲」家主心臟並未腐壞，至今仍封存於「貪婪」席位專屬議事廳的水晶秘術匣中維持微弱跳動。</li>
+          <li><strong>十四日血稅：</strong>為紀念奪取席位的「十四日政變」，王國全境所有受「貪婪」庇護的地下商會與黑市據點，每年入冬首月的前十四日均須向第七席上繳雙倍抽成，俗稱「份子錢」；繳足稅款者即可獲得一枚刻有裂冠圖樣的黑鐵籌碼，憑此在一年內免受官方緝私隊的實質清剿。</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const modal = document.getElementById("greed-codex-modal");
+    const closeBtn = document.getElementById("close-greed-codex");
+    const spotlightContainer = document.getElementById("spotlight-dossier");
+    const gridEl = document.getElementById("virtues-grid");
+    const factionBar = document.querySelector(".faction-bar");
+
+    const GREED_DATA = {
+      id: "greed",
+      seat: "SEDES VII*",
+      name: "貪婪",
+      latin: "AVARITIA",
+      faction: "usurper",
+      factionLabel: "血冕篡奪席・灰產派",
+      domain: "邊境貿易、地下金融、情報黑市與特許灰產管理",
+      angle: 11,
+      sigil: `<svg class="virtue-sigil" viewBox="0 0 48 48" style="stroke:#ff6b57;">
+        <circle cx="24" cy="26" r="15" stroke="#c29b52" />
+        <circle cx="24" cy="26" r="11" stroke-dasharray="2 3" />
+        <path d="M13 15 L17 7 L22 13 L25 5 L28 14 L33 8 L35 15" stroke="#ff6b57" stroke-width="1.5" />
+        <path d="M24 19 L28 26 L24 33 L20 26 Z" fill="rgba(217,65,54,0.28)" />
+      </svg>`,
+      points: [
+        "經「十四日血冕政變」屠滅前任第七席【犧牲】一族，以搏動心臟置於案頭強行更名入座，獲王權追認默許。",
+        "摒棄道德教條，主張將一切私慾明碼標價；全面壟斷走私航線、情報黑市與傭兵仲介等合法影子帝國。",
+        "於議政廳奉行買斷式籌碼交換，為全院最受正統鄙夷、卻最常被私下接洽的關鍵少數。"
+      ],
+      tagNote: "篡奪原第七席【犧牲】"
+    };
+
+    function openGreedCodex() {
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeGreedCodex() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeGreedCodex);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeGreedCodex();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        closeGreedCodex();
+      }
+    });
+
+    // 1. 將【貪婪】寫入主系統資料與議事廳星盤，重排角度確保八席零重疊
+    let bloodCrownEraMode = false;
+    const FULL_ANGLES = {
+      humility: 169,
+      chastity: 146.5,
+      temperance: 124,
+      patience: 101.5,
+      tolerance: 79,
+      generosity: 56.5,
+      diligence: 34,
+      greed: 11.5
+    };
+    const BLOOD_CROWN_ANGLES = {
+      humility: 168,
+      chastity: 142,
+      temperance: 116,
+      patience: 90,
+      tolerance: 64,
+      generosity: 38,
+      greed: 12
+    };
+
+    if (typeof FACTION_COLORS !== "undefined" && typeof VIRTUES_DATA !== "undefined") {
+      FACTION_COLORS.usurper = {
+        stroke: "#ff6b57",
+        fill: "#260d10",
+        sealClass: "seal-usurper"
+      };
+
+      if (!VIRTUES_DATA.some(v => v.id === "greed")) {
+        VIRTUES_DATA.push(GREED_DATA);
+      }
+
+      const applyAngles = (angleMap) => {
+        VIRTUES_DATA.forEach(v => {
+          if (angleMap[v.id] !== undefined) v.angle = angleMap[v.id];
+        });
+      };
+      applyAngles(FULL_ANGLES);
+
+      // 擴充原本的 renderHemicycle，為【貪婪】加上搏動光環與王座暗線，並支援血冕現世七席切換
+      if (typeof renderHemicycle === "function") {
+        const originalRenderHemicycle = renderHemicycle;
+        renderHemicycle = function () {
+          const savedList = VIRTUES_DATA.slice();
+          if (bloodCrownEraMode) {
+            const idx = VIRTUES_DATA.findIndex(v => v.id === "diligence");
+            if (idx !== -1) VIRTUES_DATA.splice(idx, 1);
+            applyAngles(BLOOD_CROWN_ANGLES);
+          } else {
+            applyAngles(FULL_ANGLES);
+          }
+
+          originalRenderHemicycle();
+
+          // 還原陣列完整性以防影響查詢
+          if (bloodCrownEraMode) {
+            VIRTUES_DATA.length = 0;
+            savedList.forEach(item => VIRTUES_DATA.push(item));
+          }
+
+          // 繪製【貪婪】與中央王座的默許交易暗線及搏動之匣光環
+          const greedNode = document.querySelector('#seats-layer .seat-node[data-id="greed"]');
+          const relationsLayerEl = document.getElementById("relations-layer");
+          if (greedNode && relationsLayerEl && typeof getSeatCoords === "function") {
+            const targetAngle = bloodCrownEraMode ? BLOOD_CROWN_ANGLES.greed : FULL_ANGLES.greed;
+            const gCoords = getSeatCoords(targetAngle);
+
+            const pactLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            pactLine.setAttribute("d", `M 306 255 Q 388 262 ${gCoords.x - 22} ${gCoords.y + 8}`);
+            pactLine.setAttribute("class", "relation-shadow-pact");
+            relationsLayerEl.appendChild(pactLine);
+
+            const pulseHalo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            pulseHalo.setAttribute("cx", "0");
+            pulseHalo.setAttribute("cy", "0");
+            pulseHalo.setAttribute("r", "29");
+            pulseHalo.setAttribute("class", "greed-pulse-halo");
+            greedNode.insertBefore(pulseHalo, greedNode.firstChild);
+          }
+        };
+        renderHemicycle();
+      }
+    }
+
+    // 2. 在下方牌陣追加【貪婪】卡片（不破壞前六席已綁定之按鈕）
+    if (gridEl && !document.getElementById("card-greed")) {
+      const card = document.createElement("article");
+      card.className = "virtue-card";
+      card.id = "card-greed";
+      card.dataset.faction = "usurper";
+
+      card.innerHTML = `
+        <div class="card-top">
+          <div>
+            <div class="roman-seat">
+              SEDES VII <span class="erased-seat">前身：犧牲</span>
+            </div>
+            <span class="faction-seal seal-usurper" style="margin-top:8px;margin-bottom:0;">${GREED_DATA.factionLabel}</span>
+          </div>
+          ${GREED_DATA.sigil}
+        </div>
+        <div class="card-title-row">
+          <h3 class="card-virtue-name" style="color:#ffd89b;">${GREED_DATA.name}</h3>
+          <span class="card-virtue-latin" style="color:#ff6b57;">${GREED_DATA.latin}</span>
+        </div>
+        <div class="card-jurisdiction" style="border-left-color:#d94136;background:rgba(158,28,34,0.14);">
+          <span>壟斷</span>${GREED_DATA.domain}
+        </div>
+        <ul class="card-lore">
+          ${GREED_DATA.points.map(p => `<li>${p}</li>`).join("")}
+        </ul>
+        <div class="card-footer">
+          <span class="card-note" style="color:#d4847c;">${GREED_DATA.tagNote}</span>
+          <button type="button" class="card-codex-badge badge-greed-tone">閱覽血冕卷宗 ❖</button>
+        </div>
+      `;
+
+      card.addEventListener("mousemove", e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+
+      card.querySelector(".card-codex-badge").addEventListener("click", e => {
+        e.stopPropagation();
+        openGreedCodex();
+      });
+
+      card.addEventListener("click", () => {
+        if (typeof selectVirtue === "function") {
+          selectVirtue("greed", false);
+          document.querySelector(".chamber-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+
+      gridEl.appendChild(card);
+    }
+
+    // 3. 擴充議事廳圖例與篩選列（新增「血冕篡奪席」篩選＋「血冕現世編制」切換）
+    const legendGroup = document.querySelector(".chamber-legend .legend-group");
+    if (legendGroup && !legendGroup.querySelector("[data-greed-legend]")) {
+      const item = document.createElement("span");
+      item.className = "legend-item";
+      item.dataset.greedLegend = "true";
+      item.innerHTML = `<i class="legend-dot" style="background:#ff6b57;"></i>血冕篡奪席（貪婪・前身：犧牲）`;
+      legendGroup.appendChild(item);
+    }
+
+    if (factionBar && !factionBar.querySelector('[data-filter="usurper"]')) {
+      const allCount = factionBar.querySelector('[data-filter="all"] .faction-count');
+      if (allCount) allCount.textContent = "VII+I";
+
+      // 血冕篡奪席篩選鈕
+      const usurperBtn = document.createElement("button");
+      usurperBtn.className = "faction-btn";
+      usurperBtn.dataset.filter = "usurper";
+      usurperBtn.innerHTML = `血冕篡奪席<span class="faction-count">I</span>`;
+      usurperBtn.addEventListener("click", () => {
+        document.querySelectorAll(".faction-btn:not(.btn-blood-crown-mode)").forEach(b => b.classList.remove("active"));
+        usurperBtn.classList.add("active");
+        if (typeof currentFilter !== "undefined") currentFilter = "usurper";
+        if (typeof selectVirtue === "function") selectVirtue("greed", false);
+        document.querySelectorAll(".virtue-card").forEach(c => {
+          c.classList.toggle("filtered-out", c.dataset.faction !== "usurper");
+        });
+      });
+      factionBar.appendChild(usurperBtn);
+
+      // 血冕現世（六美德＋貪婪）編制切換鈕
+      const eraBtn = document.createElement("button");
+      eraBtn.type = "button";
+      eraBtn.className = "faction-btn btn-blood-crown-mode";
+      eraBtn.innerHTML = `⚔ 血冕現世編制<span class="faction-count">六美德＋貪婪</span>`;
+      eraBtn.addEventListener("click", () => {
+        bloodCrownEraMode = !bloodCrownEraMode;
+        eraBtn.classList.toggle("era-active", bloodCrownEraMode);
+
+        const diligenceCard = document.getElementById("card-diligence");
+        if (diligenceCard) {
+          diligenceCard.classList.toggle("era-archived", bloodCrownEraMode);
+        }
+        if (allCount) {
+          allCount.textContent = bloodCrownEraMode ? "VII" : "VII+I";
+        }
+        const mainTitleEl = document.querySelector(".main-title");
+        if (mainTitleEl) {
+          mainTitleEl.textContent = bloodCrownEraMode ? "樞密議會・血冕現世" : "七美德樞密議會";
+        }
+
+        if (bloodCrownEraMode && typeof selectVirtue === "function") {
+          selectVirtue("greed", false);
+        } else if (typeof renderHemicycle === "function") {
+          renderHemicycle();
+        }
+      });
+      factionBar.appendChild(eraBtn);
+    }
+
+    // 4. 當上方議事廳選中【貪婪】席次時，於右側面板掛載血冕卷宗按鈕
+    function enhanceSpotlightPanel() {
+      if (!spotlightContainer) return;
+      const titleEl = spotlightContainer.querySelector(".dossier-name");
+      const existingBtn = spotlightContainer.querySelector(".codex-trigger-btn");
+      if (titleEl && titleEl.textContent.includes("貪婪") && !existingBtn) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "codex-trigger-btn btn-greed-tone";
+        btn.innerHTML = "<span>❖</span><span>調閱《貪婪》血冕政變與黑市總檔</span>";
+        btn.addEventListener("click", openGreedCodex);
+        spotlightContainer.appendChild(btn);
+      }
+    }
+
+    enhanceSpotlightPanel();
+    if (spotlightContainer) {
+      new MutationObserver(enhanceSpotlightPanel).observe(spotlightContainer, { childList: true });
+    }
+  })();
+</script>
+<!-- ==================== 【貪婪】擴充模組結束 ==================== -->
+
+</body>
+</html>
